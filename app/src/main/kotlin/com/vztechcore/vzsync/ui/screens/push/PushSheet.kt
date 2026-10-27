@@ -93,6 +93,8 @@ fun PushSheet(
                 PushStep.SUCCESS -> PushSuccessStep(
                     url = state.resultUrl.orEmpty(),
                     repoName = state.resultRepoName.orEmpty(),
+                    commitHash = state.resultCommitHash,
+                    filesChanged = state.resultFilesChanged,
                     logs = state.logs,
                     logStyle = state.logStyle,
                     folderPath = state.folderPath,
@@ -103,6 +105,7 @@ fun PushSheet(
                 PushStep.ERROR -> PushErrorStep(
                     errorMessage = state.errorMessage.orEmpty(),
                     errorReason = state.errorReason,
+                    errorTechnicalDetail = state.errorTechnicalDetail,
                     logs = state.logs,
                     logStyle = state.logStyle,
                     folderPath = state.folderPath,

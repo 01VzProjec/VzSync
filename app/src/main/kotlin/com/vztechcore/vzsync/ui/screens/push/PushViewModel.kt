@@ -8,7 +8,9 @@ import android.os.Environment
 import android.provider.Settings
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.vztechcore.vzsync.R
 import com.vztechcore.vzsync.core.util.Formatters
+import com.vztechcore.vzsync.core.util.StringResolver
 import com.vztechcore.vzsync.data.advanced.CommitHistoryStore
 import com.vztechcore.vzsync.data.git.FailureReason
 import com.vztechcore.vzsync.data.git.GitOperationResult
@@ -37,6 +39,11 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class PushViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val app: Application = application
+    private val strings: StringResolver = object : StringResolver {
+        override fun get(id: Int, vararg args: Any): String = app.getString(id, *args)
+    }
 
     private val commitStore = CommitHistoryStore.get(application)
     private val prefs = SecurePrefs.get(application)
@@ -109,6 +116,7 @@ class PushViewModel(application: Application) : AndroidViewModel(application) {
                     step = PushStep.SELECT_ACTION,
                     errorMessage = null,
                     errorReason = null,
+                    errorTechnicalDetail = null,
                     logs = emptyList(),
                 )
                 else -> state
@@ -150,8 +158,12 @@ class PushViewModel(application: Application) : AndroidViewModel(application) {
                 step = PushStep.PUSHING,
                 logs = emptyList(),
                 resultUrl = null,
+                resultRepoName = null,
+                resultCommitHash = null,
+                resultFilesChanged = 0,
                 errorMessage = null,
                 errorReason = null,
+                errorTechnicalDetail = null,
             )
         }
 
@@ -163,26 +175,36 @@ class PushViewModel(application: Application) : AndroidViewModel(application) {
                 _uiState.update { it.copy(logs = buffer.toList()) }
             }
 
-            fun fail(message: String, reason: FailureReason) {
+            fun fail(
+                message: String,
+                reason: FailureReason,
+                technicalDetail: String? = null,
+            ) {
                 appendLog(LogLevel.ERROR, message)
+                technicalDetail?.let {
+                    appendLog(LogLevel.COMMENT, strings.get(R.string.git_log_details, it))
+                }
                 _uiState.update {
                     it.copy(
                         step = PushStep.ERROR,
                         errorMessage = message,
                         errorReason = reason,
+                        errorTechnicalDetail = technicalDetail,
                     )
                 }
             }
 
             if (token.isBlank()) {
-                fail("Token do GitHub não encontrado. Reconecte a conta.", FailureReason.NO_TOKEN)
+                fail(
+                    strings.get(R.string.push_vm_error_no_token),
+                    FailureReason.NO_TOKEN,
+                )
                 return@launch
             }
 
             if (Build.VERSION.SDK_INT >= 30 && !Environment.isExternalStorageManager()) {
                 fail(
-                    "O VzSync precisa de acesso a todos os arquivos para usar o Git. " +
-                        "Toque em \"Abrir configurações\" e permita o acesso.",
+                    strings.get(R.string.push_vm_error_storage_permission),
                     FailureReason.STORAGE_PERMISSION_MISSING,
                 )
                 return@launch
@@ -191,9 +213,7 @@ class PushViewModel(application: Application) : AndroidViewModel(application) {
             val folderFile = resolveFolderFile(state.folderPath)
             if (folderFile == null) {
                 fail(
-                    "Não foi possível acessar a pasta selecionada. " +
-                        "Ela pode estar em um provedor de nuvem ou ter sido removida. " +
-                        "Selecione novamente pela Home.",
+                    strings.get(R.string.push_vm_error_folder_not_found),
                     FailureReason.FOLDER_NOT_FOUND,
                 )
                 return@launch
@@ -203,8 +223,12 @@ class PushViewModel(application: Application) : AndroidViewModel(application) {
             val repoFullName: String
 
             if (!isUpdate) {
-                appendLog(LogLevel.COMMENT, "Creating repository on GitHub")
-                val visibility = if (state.isPrivate) "private" else "public"
+                appendLog(LogLevel.COMMENT, strings.get(R.string.push_vm_log_creating_repo))
+                val visibility = if (state.isPrivate) {
+                    strings.get(R.string.push_vm_log_visibility_private)
+                } else {
+                    strings.get(R.string.push_vm_log_visibility_public)
+                }
                 appendLog(
                     LogLevel.COMMAND,
                     "POST /user/repos name=${state.sanitizedName} private=${state.isPrivate}",
@@ -220,7 +244,11 @@ class PushViewModel(application: Application) : AndroidViewModel(application) {
                         repoFullName = result.repo.fullName
                         appendLog(
                             LogLevel.SUCCESS,
-                            "Repository created: ${result.repo.fullName} ($visibility)",
+                            strings.get(
+                                R.string.push_vm_log_repo_created,
+                                result.repo.fullName,
+                                visibility,
+                            ),
                         )
                     }
                     is CreateRepoResult.Failure -> {
@@ -229,7 +257,7 @@ class PushViewModel(application: Application) : AndroidViewModel(application) {
                             repoFullName = "$username/${state.sanitizedName}"
                             appendLog(
                                 LogLevel.COMMENT,
-                                "Repository already exists — reusing it",
+                                strings.get(R.string.push_vm_log_repo_exists),
                             )
                         } else {
                             fail(result.message, FailureReason.REPO_INIT_FAILED)
@@ -240,13 +268,16 @@ class PushViewModel(application: Application) : AndroidViewModel(application) {
             } else {
                 targetUrl = selectedRepo.htmlUrl
                 repoFullName = selectedRepo.fullName
-                appendLog(LogLevel.COMMENT, "Target repository: $repoFullName")
+                appendLog(
+                    LogLevel.COMMENT,
+                    strings.get(R.string.push_vm_log_target_repo, repoFullName),
+                )
             }
 
             val repoName = repoFullName.substringAfter('/')
             val commitMessage = resolveCommit(state, repoName)
             val logger = JGitLogger { level, message -> appendLog(level, message) }
-            val pipeline = JGitPipeline(logger)
+            val pipeline = JGitPipeline(logger, strings)
 
             val result = pipeline.push(
                 JGitPushRequest(
@@ -284,6 +315,8 @@ class PushViewModel(application: Application) : AndroidViewModel(application) {
                             step = PushStep.SUCCESS,
                             resultUrl = result.repoUrl,
                             resultRepoName = repoName,
+                            resultCommitHash = result.commitHash,
+                            resultFilesChanged = result.filesChanged,
                         )
                     }
                 }
@@ -293,6 +326,7 @@ class PushViewModel(application: Application) : AndroidViewModel(application) {
                             step = PushStep.ERROR,
                             errorMessage = result.message,
                             errorReason = result.reason,
+                            errorTechnicalDetail = result.technicalDetail,
                         )
                     }
                 }

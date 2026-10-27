@@ -1,36 +1,39 @@
 package com.vztechcore.vzsync.data.git
 
+import com.vztechcore.vzsync.R
+import com.vztechcore.vzsync.core.util.StringResolver
 import com.vztechcore.vzsync.domain.LogLevel
 import com.vztechcore.vzsync.domain.push.PushMode
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.api.errors.GitAPIException
-import org.eclipse.jgit.api.errors.TransportException
 import org.eclipse.jgit.transport.URIish
 import java.io.File
 
-class JGitPipeline(private val logger: JGitLogger) {
+class JGitPipeline(
+    private val logger: JGitLogger,
+    private val strings: StringResolver,
+) {
 
     suspend fun push(request: JGitPushRequest): GitOperationResult = withContext(Dispatchers.IO) {
         val folder = request.folder
 
         if (!folder.exists()) {
             return@withContext fail(
-                "A pasta não existe: ${folder.absolutePath}",
+                strings.get(R.string.git_fail_folder_not_found, folder.absolutePath),
                 FailureReason.FOLDER_NOT_FOUND,
             )
         }
         if (!folder.isDirectory) {
             return@withContext fail(
-                "O caminho não é uma pasta: ${folder.absolutePath}",
+                strings.get(R.string.git_fail_not_a_directory, folder.absolutePath),
                 FailureReason.NOT_A_DIRECTORY,
             )
         }
         if (!folder.canRead()) {
             return@withContext fail(
-                "Sem permissão para acessar a pasta. Conceda \"Acesso a todos os arquivos\" " +
-                    "nas configurações do Android.",
+                strings.get(R.string.git_fail_storage_permission),
                 FailureReason.STORAGE_PERMISSION_MISSING,
             )
         }
@@ -43,31 +46,35 @@ class JGitPipeline(private val logger: JGitLogger) {
 
             // 1. Init or open
             if (isNew) {
-                logger.log(LogLevel.COMMENT, "Initializing local repository")
+                logger.log(LogLevel.COMMENT, strings.get(R.string.git_log_init_repo))
                 logger.log(LogLevel.COMMAND, "git init -b ${request.branch}")
                 git = Git.init()
                     .setDirectory(folder)
                     .setInitialBranch(request.branch)
                     .call()
-                logger.log(LogLevel.SUCCESS, "Repository initialized on branch ${request.branch}")
+                logger.log(
+                    LogLevel.SUCCESS,
+                    strings.get(R.string.git_log_repo_initialized, request.branch),
+                )
             } else {
-                logger.log(LogLevel.COMMENT, "Opening existing repository")
+                logger.log(LogLevel.COMMENT, strings.get(R.string.git_log_opening_repo))
                 logger.log(LogLevel.COMMAND, "git status")
                 try {
                     git = Git.open(folder)
                 } catch (e: Exception) {
                     return@withContext fail(
-                        "Repositório local inválido. Apague a pasta .git e tente novamente.",
+                        strings.get(R.string.git_fail_repo_open),
                         FailureReason.REPO_OPEN_FAILED,
+                        technicalDetail = describe(e),
                     )
                 }
-                logger.log(LogLevel.SUCCESS, "Repository opened")
+                logger.log(LogLevel.SUCCESS, strings.get(R.string.git_log_repo_opened))
             }
 
             // 2. Configure identity
             val config = git.repository.config
             if (config.getString("user", null, "name") == null) {
-                logger.log(LogLevel.COMMENT, "Configuring commit identity")
+                logger.log(LogLevel.COMMENT, strings.get(R.string.git_log_configuring_identity))
                 config.setString("user", null, "name", request.username)
                 config.setString(
                     "user",
@@ -76,7 +83,10 @@ class JGitPipeline(private val logger: JGitLogger) {
                     "${request.username}@users.noreply.github.com",
                 )
                 config.save()
-                logger.log(LogLevel.SUCCESS, "Identity set to ${request.username}")
+                logger.log(
+                    LogLevel.SUCCESS,
+                    strings.get(R.string.git_log_identity_set, request.username),
+                )
             }
 
             // 3. Remote
@@ -85,21 +95,21 @@ class JGitPipeline(private val logger: JGitLogger) {
             val existingRemote = config.getString("remote", "origin", "url")
 
             if (existingRemote != remoteUrl) {
-                logger.log(LogLevel.COMMENT, "Configuring remote 'origin'")
+                logger.log(LogLevel.COMMENT, strings.get(R.string.git_log_configuring_remote))
                 logger.log(LogLevel.COMMAND, "git remote add origin $remoteUrl")
                 if (existingRemote != null) {
                     config.setString("remote", "origin", "url", remoteUrl)
                     config.save()
-                    logger.log(LogLevel.SUCCESS, "Remote updated")
+                    logger.log(LogLevel.SUCCESS, strings.get(R.string.git_log_remote_updated))
                 } else {
                     git.remoteAdd()
                         .setName("origin")
                         .setUri(URIish(remoteUrl))
                         .call()
-                    logger.log(LogLevel.SUCCESS, "Remote added")
+                    logger.log(LogLevel.SUCCESS, strings.get(R.string.git_log_remote_added))
                 }
             } else {
-                logger.log(LogLevel.COMMENT, "Remote 'origin' already configured")
+                logger.log(LogLevel.COMMENT, strings.get(R.string.git_log_remote_configured))
             }
 
             // 4. Rebuild: untrack everything (only if repo has a HEAD)
@@ -110,16 +120,16 @@ class JGitPipeline(private val logger: JGitLogger) {
             }
 
             if (request.mode == PushMode.REBUILD && hasHead) {
-                logger.log(LogLevel.COMMENT, "Rebuild mode: untracking all files")
+                logger.log(LogLevel.COMMENT, strings.get(R.string.git_log_rebuild_untracking))
                 logger.log(LogLevel.COMMAND, "git rm -rf --cached .")
                 try {
                     git.rm()
                         .addFilepattern(".")
                         .setCached(true)
                         .call()
-                    logger.log(LogLevel.SUCCESS, "All files untracked")
+                    logger.log(LogLevel.SUCCESS, strings.get(R.string.git_log_all_untracked))
                 } catch (e: Exception) {
-                    logger.log(LogLevel.COMMENT, "Nothing to untrack")
+                    logger.log(LogLevel.COMMENT, strings.get(R.string.git_log_nothing_untracked))
                 }
             }
 
@@ -129,11 +139,12 @@ class JGitPipeline(private val logger: JGitLogger) {
                 git.add().addFilepattern(".").call()
             } catch (e: Exception) {
                 return@withContext fail(
-                    "Falha ao adicionar arquivos: ${e.message}",
+                    strings.get(R.string.git_fail_add, e.message.orEmpty()),
                     FailureReason.ADD_FAILED,
+                    technicalDetail = describe(e),
                 )
             }
-            logger.log(LogLevel.SUCCESS, "Files staged")
+            logger.log(LogLevel.SUCCESS, strings.get(R.string.git_log_files_staged))
 
             // 6. Check changes
             val status = try {
@@ -146,10 +157,7 @@ class JGitPipeline(private val logger: JGitLogger) {
             } ?: 0
 
             if (changes == 0 && !isNew && request.mode == PushMode.SYNC) {
-                logger.log(
-                    LogLevel.SUCCESS,
-                    "No changes to commit — everything is already in sync",
-                )
+                logger.log(LogLevel.SUCCESS, strings.get(R.string.git_log_no_changes))
                 val headHash = try {
                     git.repository.resolve("HEAD")?.name?.take(7) ?: "—"
                 } catch (_: Exception) {
@@ -169,13 +177,18 @@ class JGitPipeline(private val logger: JGitLogger) {
                     .setMessage(request.commitMessage)
                     .call()
             } catch (e: GitAPIException) {
+                val msg = e.message ?: strings.get(R.string.common_unknown_error)
                 return@withContext fail(
-                    "Falha no commit: ${e.message ?: "erro desconhecido"}",
+                    strings.get(R.string.git_fail_commit, msg),
                     FailureReason.COMMIT_FAILED,
+                    technicalDetail = describe(e),
                 )
             }
             val shortHash = commit.name.take(7)
-            logger.log(LogLevel.SUCCESS, "Commit created: $shortHash")
+            logger.log(
+                LogLevel.SUCCESS,
+                strings.get(R.string.git_log_commit_created, shortHash),
+            )
 
             // 8. Push
             val forcePush = request.mode == PushMode.REBUILD
@@ -192,28 +205,25 @@ class JGitPipeline(private val logger: JGitLogger) {
                     .setForce(forcePush)
                     .add("refs/heads/${request.branch}:refs/heads/${request.branch}")
                     .call()
-            } catch (e: TransportException) {
-                val raw = e.message ?: "Falha no transporte"
-                val friendly = when {
-                    raw.contains("not authorized", ignoreCase = true) ||
-                        raw.contains("Authentication failed", ignoreCase = true) ->
-                        "Autenticação falhou. Verifique se o token tem o escopo 'repo'."
-                    raw.contains("not found", ignoreCase = true) ->
-                        "Repositório remoto não encontrado. Verifique o nome."
-                    raw.contains("rejected", ignoreCase = true) ||
-                        raw.contains("non-fast-forward", ignoreCase = true) ->
-                        "Push rejeitado. O repositório remoto tem mudanças que você não tem. " +
-                            "Use o modo Reconstruir para sobrescrever."
-                    else -> raw
-                }
-                return@withContext fail(friendly, FailureReason.PUSH_FAILED)
-            } catch (e: GitAPIException) {
-                return@withContext fail(
-                    e.message ?: "Falha no push",
-                    FailureReason.PUSH_FAILED,
+                logger.log(LogLevel.SUCCESS, strings.get(R.string.git_log_push_completed))
+            } catch (e: Exception) {
+                // Always surface the raw exception first so the user (and the
+                // app's own log panel) can see exactly what JGit reported.
+                val technical = describe(e)
+                logger.log(
+                    LogLevel.ERROR,
+                    strings.get(R.string.git_log_push_failed, technical),
                 )
+                e.cause?.let { cause ->
+                    logger.log(
+                        LogLevel.COMMENT,
+                        strings.get(R.string.git_log_caused_by, describe(cause)),
+                    )
+                }
+
+                val (reason, friendly) = classifyPushError(e)
+                return@withContext fail(friendly, reason, technicalDetail = technical)
             }
-            logger.log(LogLevel.SUCCESS, "Push completed")
 
             return@withContext GitOperationResult.Success(
                 commitHash = shortHash,
@@ -222,9 +232,17 @@ class JGitPipeline(private val logger: JGitLogger) {
                 wasInitial = isNew,
             )
         } catch (e: GitAPIException) {
-            fail(e.message ?: "Erro no Git", FailureReason.UNKNOWN)
+            fail(
+                strings.get(R.string.git_fail_git_error),
+                FailureReason.UNKNOWN,
+                technicalDetail = describe(e),
+            )
         } catch (e: Exception) {
-            fail(e.message ?: "Erro inesperado", FailureReason.UNKNOWN)
+            fail(
+                strings.get(R.string.git_fail_unexpected),
+                FailureReason.UNKNOWN,
+                technicalDetail = describe(e),
+            )
         } finally {
             try {
                 git?.close()
@@ -233,8 +251,87 @@ class JGitPipeline(private val logger: JGitLogger) {
         }
     }
 
-    private fun fail(message: String, reason: FailureReason): GitOperationResult.Failure {
+    /**
+     * Classifies a push exception into a UI-friendly reason plus a short
+     * actionable message. Uses both the exception type name and the message
+     * text because JGit does not always throw specific subtypes consistently.
+     */
+    private fun classifyPushError(e: Exception): Pair<FailureReason, String> {
+        val typeName = e.javaClass.simpleName
+        val raw = e.message.orEmpty()
+        val causeType = e.cause?.javaClass?.simpleName.orEmpty()
+
+        val auth = typeName.contains("NotAuthorized", true) ||
+            typeName.contains("InvalidCredentials", true) ||
+            causeType.contains("NotAuthorized", true) ||
+            raw.contains("not authorized", true) ||
+            raw.contains("Authentication failed", true) ||
+            raw.contains("Invalid username or password", true) ||
+            raw.contains("401")
+
+        if (auth) {
+            return FailureReason.PUSH_AUTH_FAILED to
+                strings.get(R.string.git_push_auth_failed)
+        }
+
+        val network = typeName.contains("Transport", true) ||
+            typeName.contains("SSL", true) ||
+            causeType.contains("UnknownHost", true) ||
+            causeType.contains("SocketTimeout", true) ||
+            causeType.contains("ConnectException", true) ||
+            raw.contains("UnknownHost", true) ||
+            raw.contains("timeout", true) ||
+            raw.contains("Connection refused", true) ||
+            raw.contains("Unable to connect", true)
+
+        if (network) {
+            return FailureReason.PUSH_NETWORK_FAILED to
+                strings.get(R.string.git_push_network_failed)
+        }
+
+        val rejected = raw.contains("rejected", true) ||
+            raw.contains("non-fast-forward", true) ||
+            raw.contains("protected branch", true) ||
+            raw.contains("GH006")
+
+        if (rejected) {
+            return FailureReason.PUSH_REJECTED to
+                strings.get(R.string.git_push_rejected)
+        }
+
+        val notFound = raw.contains("not found", true) || raw.contains("404")
+        if (notFound) {
+            return FailureReason.REMOTE_FAILED to
+                strings.get(R.string.git_push_not_found)
+        }
+
+        val fallbackName = typeName.ifBlank { strings.get(R.string.common_unknown_error) }
+        return FailureReason.PUSH_FAILED to
+            strings.get(R.string.git_push_generic_failed, fallbackName)
+    }
+
+    /**
+     * Builds a compact, log-friendly description of an exception.
+     * Example: "TransportException: https://github.com/...: not authorized"
+     */
+    private fun describe(e: Throwable): String {
+        val type = e.javaClass.simpleName.ifBlank { "Exception" }
+        val msg = e.message?.trim().orEmpty()
+        return if (msg.isBlank()) type else "$type: $msg"
+    }
+
+    private fun fail(
+        message: String,
+        reason: FailureReason,
+        technicalDetail: String? = null,
+    ): GitOperationResult.Failure {
         logger.log(LogLevel.ERROR, message)
-        return GitOperationResult.Failure(message, reason)
+        if (technicalDetail != null) {
+            logger.log(
+                LogLevel.COMMENT,
+                strings.get(R.string.git_log_details, technicalDetail),
+            )
+        }
+        return GitOperationResult.Failure(message, reason, technicalDetail)
     }
 }

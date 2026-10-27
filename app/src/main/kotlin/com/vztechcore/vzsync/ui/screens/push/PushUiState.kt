@@ -27,8 +27,13 @@ data class PushUiState(
     val logs: List<LogEntry> = emptyList(),
     val resultUrl: String? = null,
     val resultRepoName: String? = null,
+    // Populated on success so the success screen can show commit context.
+    val resultCommitHash: String? = null,
+    val resultFilesChanged: Int = 0,
     val errorMessage: String? = null,
     val errorReason: FailureReason? = null,
+    // Raw exception detail (from GitOperationResult.Failure.technicalDetail).
+    val errorTechnicalDetail: String? = null,
     val folderPath: String = "",
     val logStyle: LogStyle = LogStyle.TERMINAL,
     val autoShowLog: Boolean = true,

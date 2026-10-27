@@ -7,6 +7,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,10 +18,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.selection.SelectionContainer
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Cancel
+import androidx.compose.material.icons.rounded.ContentCopy
+import androidx.compose.material.icons.rounded.ExpandLess
+import androidx.compose.material.icons.rounded.ExpandMore
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.Terminal
 import androidx.compose.material3.Button
@@ -37,7 +44,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -58,6 +68,7 @@ import com.vztechcore.vzsync.ui.theme.VzSurfaceVariant
 internal fun PushErrorStep(
     errorMessage: String,
     errorReason: FailureReason?,
+    errorTechnicalDetail: String?,
     logs: List<LogEntry>,
     logStyle: LogStyle,
     folderPath: String,
@@ -65,7 +76,9 @@ internal fun PushErrorStep(
     onOpenStorageSettings: () -> Unit,
     onClose: () -> Unit,
 ) {
+    val clipboard = LocalClipboardManager.current
     var showLogs by remember { mutableStateOf(true) }
+    var showDetails by remember { mutableStateOf(false) }
 
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -83,7 +96,9 @@ internal fun PushErrorStep(
     }
 
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Box(
@@ -114,6 +129,83 @@ internal fun PushErrorStep(
             color = VzOnSurfaceVariant,
             textAlign = TextAlign.Center,
         )
+
+        // Technical details (raw exception) — collapsible, copyable.
+        if (!errorTechnicalDetail.isNullOrBlank()) {
+            Spacer(Modifier.height(12.dp))
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(VzSurfaceVariant)
+                    .padding(12.dp),
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { showDetails = !showDetails },
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        text = stringResource(R.string.push_error_technical_details),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = VzOnSurfaceVariant,
+                        fontWeight = FontWeight.SemiBold,
+                        modifier = Modifier.weight(1f),
+                    )
+                    Icon(
+                        imageVector = if (showDetails) Icons.Rounded.ExpandLess
+                        else Icons.Rounded.ExpandMore,
+                        contentDescription = null,
+                        tint = VzOnSurfaceVariant,
+                        modifier = Modifier.size(20.dp),
+                    )
+                }
+                AnimatedVisibility(
+                    visible = showDetails,
+                    enter = expandVertically(tween(180)) + fadeIn(tween(180)),
+                    exit = shrinkVertically(tween(180)) + fadeOut(tween(180)),
+                ) {
+                    Column(Modifier.fillMaxWidth()) {
+                        Spacer(Modifier.height(8.dp))
+                        SelectionContainer {
+                            Text(
+                                text = errorTechnicalDetail,
+                                style = MaterialTheme.typography.bodySmall,
+                                color = VzOnSurface,
+                                fontFamily = FontFamily.Monospace,
+                                modifier = Modifier.fillMaxWidth(),
+                            )
+                        }
+                        Spacer(Modifier.height(8.dp))
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.End,
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Text(
+                                text = stringResource(R.string.push_error_copy_details),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = DarkSecondary,
+                                fontWeight = FontWeight.SemiBold,
+                            )
+                            IconButton(
+                                onClick = {
+                                    clipboard.setText(AnnotatedString(errorTechnicalDetail))
+                                },
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Rounded.ContentCopy,
+                                    contentDescription = null,
+                                    tint = DarkSecondary,
+                                    modifier = Modifier.size(18.dp),
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         AnimatedVisibility(
             visible = showLogs && logs.isNotEmpty(),

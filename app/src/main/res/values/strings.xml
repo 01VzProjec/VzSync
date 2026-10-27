@@ -59,6 +59,10 @@
 	<string name="common_cancel">Cancelar</string>
 	<string name="common_confirm">Confirmar</string>
 	<string name="common_continue">Continuar</string>
+	<string name="common_retry">Tentar novamente</string>
+	<string name="common_show_log">Ver log</string>
+	<string name="common_hide_log">Ocultar log</string>
+	<string name="common_unknown_error">erro desconhecido</string>
 
 	<!-- Home -->
 	<string name="home_no_folder_title">Nenhuma pasta selecionada</string>
@@ -157,15 +161,18 @@
 	<string name="push_success_url">URL do repositório</string>
 	<string name="push_success_copy_url">Copiar URL</string>
 	<string name="push_success_open_url">Abrir no navegador</string>
+	<string name="push_success_commit_hash">Commit</string>
+	<plurals name="push_success_files_changed">
+		<item quantity="one">%1$d arquivo alterado</item>
+		<item quantity="other">%1$d arquivos alterados</item>
+	</plurals>
+	<string name="push_success_in_sync">Tudo já está sincronizado — nenhuma alteração para enviar.</string>
 
 	<!-- Push error -->
 	<string name="push_error_title">Falhou</string>
 	<string name="push_error_open_settings">Abrir configurações</string>
-
-	<!-- Common actions -->
-	<string name="common_retry">Tentar novamente</string>
-	<string name="common_show_log">Ver log</string>
-	<string name="common_hide_log">Ocultar log</string>
+	<string name="push_error_technical_details">Detalhes técnicos</string>
+	<string name="push_error_copy_details">Copiar detalhes</string>
 
 	<!-- Clone -->
 	<string name="clone_title">Clonar repositório</string>
@@ -454,30 +461,82 @@
 	<string name="library_documentfile_used">Leitura das pastas selecionadas pelo usuário.</string>
 	<string name="library_jakarta_desc">Família tipográfica usada na interface.</string>
 	<string name="library_jakarta_used">Todas as fontes do aplicativo.</string>
-    
-    <!-- Help screen UI -->
-    <string name="help_search_placeholder">Buscar na ajuda</string>
-    <string name="help_search_clear">Limpar busca</string>
-    <string name="help_search_empty">Nenhum resultado para \"%1$s\"</string>
-    <string name="help_header_title">Guia do VzSync</string>
-    <string name="help_header_subtitle">Tudo o que você precisa para usar o app: como conectar, como enviar e o que cada opção faz.</string>
-    <string name="help_callout_tip">Dica</string>
-    <string name="help_callout_warning">Atenção</string>
-    <string name="help_callout_danger">Cuidado</string>
-    
-    <!-- Libraries screen UI -->
-    <string name="libraries_header_title">Bibliotecas de terceiros</string>
-    <string name="libraries_header_subtitle">O VzSync é construído sobre %1$d bibliotecas open source mantidas por pessoas e organizações ao redor do mundo. Cada uma é usada com gratidão e respeito à sua licença.</string>
-    <string name="libraries_legend_liberal">Permissiva</string>
-    <string name="libraries_legend_moderate">Com condições</string>
-    <string name="libraries_legend_strict">Restritiva</string>
-    <string name="libraries_hint">Toque em uma biblioteca para ver mais detalhes, o link do projeto e o texto da licença.</string>
-    <string name="libraries_detail_used_for">Usada para: %1$s</string>
-    <string name="libraries_detail_project_link">Site / repositório</string>
-    <string name="libraries_detail_license_text">Texto da licença</string>
-    <string name="libraries_detail_copy_link">Copiar link</string>
-    <string name="libraries_detail_open_link">Abrir link</string>
-    <string name="libraries_detail_close">Fechar</string>
-    <string name="libraries_copied">Copiado</string>
-    <string name="libraries_link_error">Não foi possível abrir o link</string>
+
+	<!-- Help screen UI -->
+	<string name="help_search_placeholder">Buscar na ajuda</string>
+	<string name="help_search_clear">Limpar busca</string>
+	<string name="help_search_empty">Nenhum resultado para \"%1$s\"</string>
+	<string name="help_header_title">Guia do VzSync</string>
+	<string name="help_header_subtitle">Tudo o que você precisa para usar o app: como conectar, como enviar e o que cada opção faz.</string>
+	<string name="help_callout_tip">Dica</string>
+	<string name="help_callout_warning">Atenção</string>
+	<string name="help_callout_danger">Cuidado</string>
+
+	<!-- Libraries screen UI -->
+	<string name="libraries_header_title">Bibliotecas de terceiros</string>
+	<string name="libraries_header_subtitle">O VzSync é construído sobre %1$d bibliotecas open source mantidas por pessoas e organizações ao redor do mundo. Cada uma é usada com gratidão e respeito à sua licença.</string>
+	<string name="libraries_legend_liberal">Permissiva</string>
+	<string name="libraries_legend_moderate">Com condições</string>
+	<string name="libraries_legend_strict">Restritiva</string>
+	<string name="libraries_hint">Toque em uma biblioteca para ver mais detalhes, o link do projeto e o texto da licença.</string>
+	<string name="libraries_detail_used_for">Usada para: %1$s</string>
+	<string name="libraries_detail_project_link">Site / repositório</string>
+	<string name="libraries_detail_license_text">Texto da licença</string>
+	<string name="libraries_detail_copy_link">Copiar link</string>
+	<string name="libraries_detail_open_link">Abrir link</string>
+	<string name="libraries_detail_close">Fechar</string>
+	<string name="libraries_copied">Copiado</string>
+	<string name="libraries_link_error">Não foi possível abrir o link</string>
+
+	<!-- Git pipeline — log messages (visible in the push log panel) -->
+	<string name="git_log_init_repo">Inicializando repositório local</string>
+	<string name="git_log_repo_initialized">Repositório inicializado no branch %1$s</string>
+	<string name="git_log_opening_repo">Abrindo repositório existente</string>
+	<string name="git_log_repo_opened">Repositório aberto</string>
+	<string name="git_log_configuring_identity">Configurando identidade do commit</string>
+	<string name="git_log_identity_set">Identidade definida como %1$s</string>
+	<string name="git_log_configuring_remote">Configurando remote \'origin\'</string>
+	<string name="git_log_remote_updated">Remote atualizado</string>
+	<string name="git_log_remote_added">Remote adicionado</string>
+	<string name="git_log_remote_configured">Remote \'origin\' já está configurado</string>
+	<string name="git_log_rebuild_untracking">Modo Reconstruir: removendo todos os arquivos do índice</string>
+	<string name="git_log_all_untracked">Todos os arquivos foram removidos do índice</string>
+	<string name="git_log_nothing_untracked">Nada para remover do índice</string>
+	<string name="git_log_files_staged">Arquivos preparados</string>
+	<string name="git_log_no_changes">Nenhuma alteração para commitar — tudo já está sincronizado</string>
+	<string name="git_log_commit_created">Commit criado: %1$s</string>
+	<string name="git_log_push_completed">Push concluído</string>
+	<string name="git_log_push_failed">Push falhou: %1$s</string>
+	<string name="git_log_caused_by">causado por: %1$s</string>
+	<string name="git_log_details">detalhes: %1$s</string>
+
+	<!-- Git pipeline — failure messages -->
+	<string name="git_fail_folder_not_found">A pasta não existe: %1$s</string>
+	<string name="git_fail_not_a_directory">O caminho não é uma pasta: %1$s</string>
+	<string name="git_fail_storage_permission">Sem permissão para acessar a pasta. Conceda \"Acesso a todos os arquivos\" nas configurações do Android.</string>
+	<string name="git_fail_repo_open">Repositório local inválido. Apague a pasta .git e tente novamente.</string>
+	<string name="git_fail_add">Falha ao adicionar arquivos: %1$s</string>
+	<string name="git_fail_commit">Falha no commit: %1$s</string>
+	<string name="git_fail_git_error">Erro do Git durante o push.</string>
+	<string name="git_fail_unexpected">Erro inesperado durante o push.</string>
+
+	<!-- Git pipeline — push error classification (shown in the error screen) -->
+	<string name="git_push_auth_failed">Autenticação falhou. Verifique se o token PAT tem o escopo \'repo\' e não expirou.</string>
+	<string name="git_push_network_failed">Erro de rede durante o push. Verifique a conexão e tente novamente.</string>
+	<string name="git_push_rejected">Push rejeitado pelo servidor. O remoto tem alterações que você não tem, ou a branch está protegida. Use o modo Reconstruir para sobrescrever.</string>
+	<string name="git_push_not_found">Repositório remoto não encontrado. Verifique o nome e suas permissões.</string>
+	<string name="git_push_generic_failed">Falha no push: %1$s</string>
+
+	<!-- Push viewmodel — log messages -->
+	<string name="push_vm_log_creating_repo">Criando repositório no GitHub</string>
+	<string name="push_vm_log_repo_created">Repositório criado: %1$s (%2$s)</string>
+	<string name="push_vm_log_repo_exists">Repositório já existe — reutilizando</string>
+	<string name="push_vm_log_target_repo">Repositório alvo: %1$s</string>
+	<string name="push_vm_log_visibility_private">privado</string>
+	<string name="push_vm_log_visibility_public">público</string>
+
+	<!-- Push viewmodel — errors -->
+	<string name="push_vm_error_no_token">Token do GitHub não encontrado. Reconecte a conta.</string>
+	<string name="push_vm_error_storage_permission">O VzSync precisa de acesso a todos os arquivos para usar o Git. Toque em \"Abrir configurações\" e permita o acesso.</string>
+	<string name="push_vm_error_folder_not_found">Não foi possível acessar a pasta selecionada. Ela pode estar em um provedor de nuvem ou ter sido removida. Selecione novamente pela Home.</string>
 </resources>

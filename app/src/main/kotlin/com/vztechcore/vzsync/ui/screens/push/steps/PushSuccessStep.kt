@@ -19,8 +19,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.material.icons.rounded.ContentCopy
@@ -41,6 +43,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
@@ -65,6 +68,8 @@ import com.vztechcore.vzsync.ui.theme.VzSurfaceVariant
 internal fun PushSuccessStep(
     url: String,
     repoName: String,
+    commitHash: String?,
+    filesChanged: Int,
     logs: List<LogEntry>,
     logStyle: LogStyle,
     folderPath: String,
@@ -75,6 +80,11 @@ internal fun PushSuccessStep(
     val context = LocalContext.current
     val clipboard = LocalClipboardManager.current
     var showLogs by remember { mutableStateOf(autoShowLog) }
+
+    // "filesChanged == 0" means the pipeline short-circuited because the
+    // local tree already matched the remote. Show a dedicated message
+    // instead of implying a new commit was pushed.
+    val inSync = filesChanged == 0
 
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -92,7 +102,9 @@ internal fun PushSuccessStep(
     }
 
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Box(
@@ -118,11 +130,57 @@ internal fun PushSuccessStep(
         )
         Spacer(Modifier.height(6.dp))
         Text(
-            text = successMessage(postPushAction, repoName),
+            text = if (inSync) {
+                stringResource(R.string.push_success_in_sync)
+            } else {
+                successMessage(postPushAction, repoName)
+            },
             style = MaterialTheme.typography.bodySmall,
             color = VzOnSurfaceVariant,
             textAlign = TextAlign.Center,
         )
+
+        // Commit summary — hidden when nothing was pushed.
+        if (!inSync && !commitHash.isNullOrBlank()) {
+            Spacer(Modifier.height(14.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(VzSurfaceVariant)
+                    .padding(horizontal = 14.dp, vertical = 10.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = stringResource(R.string.push_success_commit_hash),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = VzOnSurfaceVariant,
+                        fontWeight = FontWeight.SemiBold,
+                    )
+                    Text(
+                        text = commitHash,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = VzOnSurface,
+                        fontFamily = FontFamily.Monospace,
+                    )
+                }
+                Column(
+                    modifier = Modifier.weight(1f),
+                    horizontalAlignment = Alignment.End,
+                ) {
+                    Text(
+                        text = pluralStringResource(
+                            R.plurals.push_success_files_changed,
+                            filesChanged,
+                            filesChanged,
+                        ),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = VzOnSurfaceVariant,
+                    )
+                }
+            }
+        }
 
         Spacer(Modifier.height(20.dp))
 

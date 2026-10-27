@@ -59,6 +59,10 @@
 	<string name="common_cancel">Cancel</string>
 	<string name="common_confirm">Confirm</string>
 	<string name="common_continue">Continue</string>
+	<string name="common_retry">Try again</string>
+	<string name="common_show_log">Show log</string>
+	<string name="common_hide_log">Hide log</string>
+	<string name="common_unknown_error">unknown error</string>
 
 	<!-- Home -->
 	<string name="home_no_folder_title">No folder selected</string>
@@ -157,15 +161,18 @@
 	<string name="push_success_url">Repository URL</string>
 	<string name="push_success_copy_url">Copy URL</string>
 	<string name="push_success_open_url">Open in browser</string>
+	<string name="push_success_commit_hash">Commit</string>
+	<plurals name="push_success_files_changed">
+		<item quantity="one">%1$d file changed</item>
+		<item quantity="other">%1$d files changed</item>
+	</plurals>
+	<string name="push_success_in_sync">Everything is already in sync — nothing to push.</string>
 
 	<!-- Push error -->
 	<string name="push_error_title">Failed</string>
 	<string name="push_error_open_settings">Open settings</string>
-
-	<!-- Common actions -->
-	<string name="common_retry">Try again</string>
-	<string name="common_show_log">Show log</string>
-	<string name="common_hide_log">Hide log</string>
+	<string name="push_error_technical_details">Technical details</string>
+	<string name="push_error_copy_details">Copy details</string>
 
 	<!-- Clone -->
 	<string name="clone_title">Clone repository</string>
@@ -454,30 +461,82 @@
 	<string name="library_documentfile_used">Read user-selected folders.</string>
 	<string name="library_jakarta_desc">Type family used in the interface.</string>
 	<string name="library_jakarta_used">All app fonts.</string>
-    
-    <!-- Help screen UI -->
-    <string name="help_search_placeholder">Search help</string>
-    <string name="help_search_clear">Clear search</string>
-    <string name="help_search_empty">No results for \"%1$s\"</string>
-    <string name="help_header_title">VzSync Guide</string>
-    <string name="help_header_subtitle">Everything you need to use the app: how to connect, how to push, and what each option does.</string>
-    <string name="help_callout_tip">Tip</string>
-    <string name="help_callout_warning">Warning</string>
-    <string name="help_callout_danger">Danger</string>
 
-    <!-- Libraries screen UI -->
-    <string name="libraries_header_title">Third-party libraries</string>
-    <string name="libraries_header_subtitle">VzSync is built on %1$d open source libraries maintained by people and organizations around the world. Each one is used with gratitude and respect for its license.</string>
-    <string name="libraries_legend_liberal">Permissive</string>
-    <string name="libraries_legend_moderate">With conditions</string>
-    <string name="libraries_legend_strict">Restrictive</string>
-    <string name="libraries_hint">Tap a library to see more details, the project link and the license text.</string>
-    <string name="libraries_detail_used_for">Used for: %1$s</string>
-    <string name="libraries_detail_project_link">Website / repository</string>
-    <string name="libraries_detail_license_text">License text</string>
-    <string name="libraries_detail_copy_link">Copy link</string>
-    <string name="libraries_detail_open_link">Open link</string>
-    <string name="libraries_detail_close">Close</string>
-    <string name="libraries_copied">Copied</string>
-    <string name="libraries_link_error">Could not open the link</string>
+	<!-- Help screen UI -->
+	<string name="help_search_placeholder">Search help</string>
+	<string name="help_search_clear">Clear search</string>
+	<string name="help_search_empty">No results for \"%1$s\"</string>
+	<string name="help_header_title">VzSync Guide</string>
+	<string name="help_header_subtitle">Everything you need to use the app: how to connect, how to push, and what each option does.</string>
+	<string name="help_callout_tip">Tip</string>
+	<string name="help_callout_warning">Warning</string>
+	<string name="help_callout_danger">Danger</string>
+
+	<!-- Libraries screen UI -->
+	<string name="libraries_header_title">Third-party libraries</string>
+	<string name="libraries_header_subtitle">VzSync is built on %1$d open source libraries maintained by people and organizations around the world. Each one is used with gratitude and respect for its license.</string>
+	<string name="libraries_legend_liberal">Permissive</string>
+	<string name="libraries_legend_moderate">With conditions</string>
+	<string name="libraries_legend_strict">Restrictive</string>
+	<string name="libraries_hint">Tap a library to see more details, the project link and the license text.</string>
+	<string name="libraries_detail_used_for">Used for: %1$s</string>
+	<string name="libraries_detail_project_link">Website / repository</string>
+	<string name="libraries_detail_license_text">License text</string>
+	<string name="libraries_detail_copy_link">Copy link</string>
+	<string name="libraries_detail_open_link">Open link</string>
+	<string name="libraries_detail_close">Close</string>
+	<string name="libraries_copied">Copied</string>
+	<string name="libraries_link_error">Could not open the link</string>
+
+	<!-- Git pipeline — log messages (visible in the push log panel) -->
+	<string name="git_log_init_repo">Initializing local repository</string>
+	<string name="git_log_repo_initialized">Repository initialized on branch %1$s</string>
+	<string name="git_log_opening_repo">Opening existing repository</string>
+	<string name="git_log_repo_opened">Repository opened</string>
+	<string name="git_log_configuring_identity">Configuring commit identity</string>
+	<string name="git_log_identity_set">Identity set to %1$s</string>
+	<string name="git_log_configuring_remote">Configuring remote \'origin\'</string>
+	<string name="git_log_remote_updated">Remote updated</string>
+	<string name="git_log_remote_added">Remote added</string>
+	<string name="git_log_remote_configured">Remote \'origin\' already configured</string>
+	<string name="git_log_rebuild_untracking">Rebuild mode: untracking all files</string>
+	<string name="git_log_all_untracked">All files untracked</string>
+	<string name="git_log_nothing_untracked">Nothing to untrack</string>
+	<string name="git_log_files_staged">Files staged</string>
+	<string name="git_log_no_changes">No changes to commit — everything is already in sync</string>
+	<string name="git_log_commit_created">Commit created: %1$s</string>
+	<string name="git_log_push_completed">Push completed</string>
+	<string name="git_log_push_failed">Push failed: %1$s</string>
+	<string name="git_log_caused_by">caused by: %1$s</string>
+	<string name="git_log_details">details: %1$s</string>
+
+	<!-- Git pipeline — failure messages -->
+	<string name="git_fail_folder_not_found">Folder does not exist: %1$s</string>
+	<string name="git_fail_not_a_directory">Path is not a folder: %1$s</string>
+	<string name="git_fail_storage_permission">No permission to access the folder. Grant \"All files access\" in Android settings.</string>
+	<string name="git_fail_repo_open">Invalid local repository. Delete the .git folder and try again.</string>
+	<string name="git_fail_add">Failed to add files: %1$s</string>
+	<string name="git_fail_commit">Commit failed: %1$s</string>
+	<string name="git_fail_git_error">Git error during push.</string>
+	<string name="git_fail_unexpected">Unexpected error during push.</string>
+
+	<!-- Git pipeline — push error classification (shown in the error screen) -->
+	<string name="git_push_auth_failed">Authentication failed. Check that your PAT has the \'repo\' scope and has not expired.</string>
+	<string name="git_push_network_failed">Network error during push. Check your connection and try again.</string>
+	<string name="git_push_rejected">Push rejected by the server. The remote has changes you don\'t have, or the branch is protected. Use Rebuild mode to overwrite.</string>
+	<string name="git_push_not_found">Remote repository not found. Check the name and your permissions.</string>
+	<string name="git_push_generic_failed">Push failed: %1$s</string>
+
+	<!-- Push viewmodel — log messages -->
+	<string name="push_vm_log_creating_repo">Creating repository on GitHub</string>
+	<string name="push_vm_log_repo_created">Repository created: %1$s (%2$s)</string>
+	<string name="push_vm_log_repo_exists">Repository already exists — reusing it</string>
+	<string name="push_vm_log_target_repo">Target repository: %1$s</string>
+	<string name="push_vm_log_visibility_private">private</string>
+	<string name="push_vm_log_visibility_public">public</string>
+
+	<!-- Push viewmodel — errors -->
+	<string name="push_vm_error_no_token">GitHub token not found. Reconnect your account.</string>
+	<string name="push_vm_error_storage_permission">VzSync needs full file access to use Git. Tap \"Open settings\" and grant access.</string>
+	<string name="push_vm_error_folder_not_found">Could not access the selected folder. It may be on a cloud provider or have been removed. Select it again from the Home screen.</string>
 </resources>

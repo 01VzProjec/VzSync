@@ -1,22 +1,112 @@
 {
   "allFiles": [
     {
-      "file": "/storage/emulated/0/AndroidIDE_Projects/VzSync/app/build.gradle.kts",
+      "file": "/storage/emulated/0/AndroidIDE_Projects/VzSync/app/src/main/kotlin/com/vztechcore/vzsync/data/git/GitOperationResult.kt",
       "selection": {
         "end": {
           "column": 1,
-          "index": 4602,
-          "line": 151
+          "index": 1034,
+          "line": 36
         },
         "start": {
           "column": 1,
-          "index": 4602,
-          "line": 151
+          "index": 1034,
+          "line": 36
         }
       }
     },
     {
-      "file": "/storage/emulated/0/AndroidIDE_Projects/VzSync/.gitignore",
+      "file": "/storage/emulated/0/AndroidIDE_Projects/VzSync/app/src/main/kotlin/com/vztechcore/vzsync/data/git/JGitPipeline.kt",
+      "selection": {
+        "end": {
+          "column": 1,
+          "index": 13235,
+          "line": 336
+        },
+        "start": {
+          "column": 1,
+          "index": 13235,
+          "line": 336
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDE_Projects/VzSync/app/src/main/kotlin/com/vztechcore/vzsync/ui/screens/push/PushUiState.kt",
+      "selection": {
+        "end": {
+          "column": 1,
+          "index": 1602,
+          "line": 43
+        },
+        "start": {
+          "column": 1,
+          "index": 1602,
+          "line": 43
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDE_Projects/VzSync/app/src/main/kotlin/com/vztechcore/vzsync/ui/screens/push/PushViewModel.kt",
+      "selection": {
+        "end": {
+          "column": 1,
+          "index": 13634,
+          "line": 361
+        },
+        "start": {
+          "column": 1,
+          "index": 13634,
+          "line": 361
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDE_Projects/VzSync/app/src/main/kotlin/com/vztechcore/vzsync/ui/screens/push/steps/PushErrorStep.kt",
+      "selection": {
+        "end": {
+          "column": 1,
+          "index": 11885,
+          "line": 299
+        },
+        "start": {
+          "column": 1,
+          "index": 11885,
+          "line": 299
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDE_Projects/VzSync/app/src/main/kotlin/com/vztechcore/vzsync/ui/screens/push/steps/PushSuccessStep.kt",
+      "selection": {
+        "end": {
+          "column": 1,
+          "index": 10727,
+          "line": 273
+        },
+        "start": {
+          "column": 1,
+          "index": 10727,
+          "line": 273
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDE_Projects/VzSync/app/src/main/kotlin/com/vztechcore/vzsync/ui/screens/push/PushSheet.kt",
+      "selection": {
+        "end": {
+          "column": 1,
+          "index": 4884,
+          "line": 118
+        },
+        "start": {
+          "column": 1,
+          "index": 4884,
+          "line": 118
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDE_Projects/VzSync/app/src/main/AndroidManifest.xml",
       "selection": {
         "end": {
           "column": 0,
@@ -31,7 +121,22 @@
       }
     },
     {
-      "file": "/storage/emulated/0/AndroidIDE_Projects/VzSync/app/release-key.jks",
+      "file": "/storage/emulated/0/AndroidIDE_Projects/VzSync/app/src/main/res/values/strings.xml",
+      "selection": {
+        "end": {
+          "column": 12,
+          "index": 36456,
+          "line": 541
+        },
+        "start": {
+          "column": 12,
+          "index": 36456,
+          "line": 541
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDE_Projects/VzSync/app/src/main/kotlin/com/vztechcore/vzsync/core/util/Formatters.kt",
       "selection": {
         "end": {
           "column": 0,
@@ -46,50 +151,35 @@
       }
     },
     {
-      "file": "/storage/emulated/0/AndroidIDE_Projects/VzSync/local.properties",
+      "file": "/storage/emulated/0/AndroidIDE_Projects/VzSync/app/src/main/kotlin/com/vztechcore/vzsync/core/util/StringsResolver.kt",
       "selection": {
         "end": {
-          "column": 0,
-          "index": 0,
-          "line": 0
+          "column": 1,
+          "index": 363,
+          "line": 11
         },
         "start": {
-          "column": 0,
-          "index": 0,
-          "line": 0
+          "column": 1,
+          "index": 363,
+          "line": 11
         }
       }
     },
     {
-      "file": "/storage/emulated/0/AndroidIDE_Projects/VzSync/.github/workflows/build.yml",
+      "file": "/storage/emulated/0/AndroidIDE_Projects/VzSync/app/src/main/res/values-en/strings.xml",
       "selection": {
         "end": {
-          "column": 61,
-          "index": 2197,
-          "line": 64
+          "column": 12,
+          "index": 35145,
+          "line": 541
         },
         "start": {
-          "column": 61,
-          "index": 2197,
-          "line": 64
-        }
-      }
-    },
-    {
-      "file": "/storage/emulated/0/AndroidIDE_Projects/VzSync/gradle.properties",
-      "selection": {
-        "end": {
-          "column": 23,
-          "index": 907,
-          "line": 22
-        },
-        "start": {
-          "column": 23,
-          "index": 907,
-          "line": 22
+          "column": 12,
+          "index": 35145,
+          "line": 541
         }
       }
     }
   ],
-  "selectedFile": "/storage/emulated/0/AndroidIDE_Projects/VzSync/.github/workflows/build.yml"
+  "selectedFile": "/storage/emulated/0/AndroidIDE_Projects/VzSync/app/src/main/res/values-en/strings.xml"
 }
