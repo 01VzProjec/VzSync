@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">VzSync</string>
+
+	<!-- Language selection -->
+	<string name="language_select_title">Choose your language</string>
+	<string name="language_select_subtitle">You can change this later in settings.</string>
+	<string name="language_pt_br">Português (Brasil)</string>
+	<string name="language_en">English (United States)</string>
+	<string name="language_confirm">Continue</string>
+
+	<!-- Welcome -->
+	<string name="welcome_title">Welcome to VzSync</string>
+	<string name="welcome_subtitle">Push and clone GitHub projects from your phone, no commands needed.</string>
+	<string name="welcome_feature_1_title">Connect GitHub</string>
+	<string name="welcome_feature_1_desc">Use a personal access token to authorize the app.</string>
+	<string name="welcome_feature_2_title">Choose or clone a folder</string>
+	<string name="welcome_feature_2_desc">Push a local project or download an existing repository.</string>
+	<string name="welcome_feature_3_title">Push in 2 taps</string>
+	<string name="welcome_feature_3_desc">No terminal. No memorizing commands.</string>
+	<string name="welcome_start">Get started</string>
+
+	<!-- Settings -->
+	<string name="settings_title">Settings</string>
+	<string name="settings_section_appearance">Appearance</string>
+	<string name="settings_section_system">System</string>
+	<string name="settings_section_info">Information</string>
+	<string name="settings_theme">Theme</string>
+	<string name="settings_theme_subtitle">App appearance</string>
+	<string name="settings_theme_sheet_title">Theme</string>
+	<string name="settings_theme_sheet_subtitle">Choose the app appearance.</string>
+	<string name="settings_theme_system">System default</string>
+	<string name="settings_theme_system_desc">Follows the device theme</string>
+	<string name="settings_theme_light">Light</string>
+	<string name="settings_theme_light_desc">Always light</string>
+	<string name="settings_theme_dark">Dark</string>
+	<string name="settings_theme_dark_desc">Always dark</string>
+	<string name="settings_theme_amoled">AMOLED Black</string>
+	<string name="settings_theme_amoled_desc">Pure black for OLED screens</string>
+	<string name="settings_language">Language</string>
+	<string name="settings_language_subtitle">App language</string>
+	<string name="settings_language_sheet_title">Language</string>
+	<string name="settings_language_sheet_subtitle">Choose the app language.</string>
+	<string name="settings_push">Push system</string>
+	<string name="settings_advanced_actions">Advanced actions</string>
+	<string name="settings_advanced_actions_subtitle">History, undo, switch branch</string>
+	<string name="settings_about">About the project</string>
+	<string name="settings_about_subtitle">About VzSync, version and author</string>
+	<string name="settings_help">Help</string>
+	<string name="settings_help_subtitle">Complete app guide</string>
+	<string name="settings_libraries">Libraries</string>
+	<string name="settings_libraries_subtitle">Open source libraries used in the project</string>
+	<string name="settings_back">Back</string>
+	<string name="settings_help_action">Help</string>
+
+	<!-- Common -->
+	<string name="common_back">Back</string>
+	<string name="common_close">Close</string>
+	<string name="common_cancel">Cancel</string>
+	<string name="common_confirm">Confirm</string>
+	<string name="common_continue">Continue</string>
+
+	<!-- Home -->
+	<string name="home_no_folder_title">No folder selected</string>
+	<string name="home_no_folder_subtitle">Pick a folder to push or clone a GitHub repository.</string>
+	<string name="home_analyzing_folder">Analyzing folder…</string>
+	<string name="home_ready_to_send">Ready to push</string>
+	<string name="home_button_analyzing">Analyzing…</string>
+	<string name="home_button_send">Push to GitHub</string>
+	<string name="home_button_select_folder">Pick folder</string>
+	<string name="home_button_clone">Clone repository</string>
+	<string name="home_info_modified">Modified</string>
+	<string name="home_info_size">Size</string>
+	<string name="home_info_items">Items</string>
+
+	<plurals name="home_file_count">
+		<item quantity="one">%d file</item>
+		<item quantity="other">%d files</item>
+	</plurals>
+	<plurals name="home_folder_count">
+		<item quantity="one">%d folder</item>
+		<item quantity="other">%d folders</item>
+	</plurals>
+
+	<!-- Folder bar -->
+	<string name="folder_bar_open_tree">Open file tree</string>
+	<string name="folder_bar_more_options">More options</string>
+	<string name="folder_bar_refresh">Refresh folder</string>
+	<string name="folder_bar_change">Change folder</string>
+	<string name="folder_bar_close">Close folder</string>
+
+	<!-- File tree drawer -->
+	<string name="drawer_title">Structure</string>
+	<string name="drawer_subtitle">Tap folders to expand</string>
+	<string name="drawer_empty">No files to show</string>
+	<string name="drawer_help_action">Help about the side menu</string>
+	<string name="drawer_refresh_action">Refresh</string>
+
+	<!-- Top bar -->
+	<string name="topbar_settings_action">Settings</string>
+	<string name="topbar_profile_photo">Profile photo of %s</string>
+	<string name="topbar_sign_in">Sign in</string>
+
+	<!-- Footer -->
+	<string name="footer_personal_project">Personal project</string>
+	<string name="footer_branding">Vtzin x • VzTechCore</string>
+
+	<!-- Push select action -->
+	<string name="push_select_action_title">Push to GitHub</string>
+	<string name="push_select_action_subtitle">Choose how to push the project.</string>
+	<string name="push_action_help">Help</string>
+	<string name="push_action_create_title">Create repository</string>
+	<string name="push_action_create_subtitle">Creates a new GitHub repository and pushes the project.</string>
+	<string name="push_action_existing_title">Existing repository</string>
+	<string name="push_action_existing_subtitle">Choose one of your repositories and push the project to it.</string>
+
+	<!-- Push create repo -->
+	<string name="push_create_title">Create repository</string>
+	<string name="push_create_name_label">Repository name</string>
+	<string name="push_create_sanitized">GitHub name: %s</string>
+	<string name="push_create_name_invalid">Invalid name. Use letters, numbers, - _ or .</string>
+	<string name="push_create_visibility">Visibility</string>
+	<string name="push_create_public">Public</string>
+	<string name="push_create_public_subtitle">Anyone can see the repository.</string>
+	<string name="push_create_private">Private</string>
+	<string name="push_create_private_subtitle">Only you can see the repository.</string>
+	<string name="push_create_private_warning">Private repositories have a 2,000 min/month GitHub Actions limit (free plan). For unlimited minutes, consider a public repository.</string>
+	<string name="push_create_confirm">Confirm and push</string>
+
+	<!-- Push select repo -->
+	<string name="push_select_title">Existing repository</string>
+	<string name="push_select_subtitle">Choose which repository to push to.</string>
+	<string name="push_select_empty">No repositories found</string>
+	<string name="push_select_retry">Try again</string>
+
+	<!-- Push confirm repo -->
+	<string name="push_confirm_title">Confirm push</string>
+	<string name="push_confirm_mode_action">Push mode</string>
+	<string name="push_confirm_sync">Sync</string>
+	<string name="push_confirm_sync_subtitle">Keeps existing files</string>
+	<string name="push_confirm_rebuild">Rebuild</string>
+	<string name="push_confirm_rebuild_subtitle">Deletes and recreates</string>
+	<string name="push_confirm_empty">No repository selected.</string>
+	<string name="push_confirm_how">How to push</string>
+	<string name="push_confirm_rebuild_warning">Warning: this permanently deletes the repository\'s current content before pushing the new files. Irreversible.</string>
+	<string name="push_confirm_rebuild_button">Rebuild and push</string>
+	<string name="push_confirm_button">Confirm and push</string>
+
+	<!-- Push pushing -->
+	<string name="push_pushing_title">Pushing…</string>
+	<string name="push_pushing_subtitle">Wait while the project is being pushed.</string>
+
+	<!-- Push success -->
+	<string name="push_success_title">Done!</string>
+	<string name="push_success_message_full">Project successfully pushed to \'%s\'.</string>
+	<string name="push_success_message_commit_only">Commit created locally for \'%s\'. Push was not executed.</string>
+	<string name="push_success_url">Repository URL</string>
+	<string name="push_success_copy_url">Copy URL</string>
+	<string name="push_success_open_url">Open in browser</string>
+
+	<!-- Push error -->
+	<string name="push_error_title">Failed</string>
+	<string name="push_error_open_settings">Open settings</string>
+
+	<!-- Common actions -->
+	<string name="common_retry">Try again</string>
+	<string name="common_show_log">Show log</string>
+	<string name="common_hide_log">Hide log</string>
+
+	<!-- Clone -->
+	<string name="clone_title">Clone repository</string>
+	<string name="clone_help_action">Help about cloning a repository</string>
+	<string name="clone_subtitle">Paste the HTTPS URL of the GitHub repository. The project will be downloaded to the VzSync folder.</string>
+	<string name="clone_url_label">Repository URL</string>
+	<string name="clone_url_placeholder">https://github.com/user/repo</string>
+	<string name="clone_url_hint">Only HTTPS is supported. Private repositories work if your token has the \'repo\' scope.</string>
+	<string name="clone_button">Clone</string>
+	<string name="clone_cloning_title">Cloning repository</string>
+	<string name="clone_cloning_preparing">Preparing…</string>
+	<string name="clone_cloning_calculating">Calculating…</string>
+	<string name="clone_cloning_percentage">%1$d%%</string>
+	<string name="clone_cloning_branding">by VzSync | Vtzin x • VzTechCore</string>
+	<string name="clone_hide">Hide</string>
+	<string name="clone_hide_hint">The download continues even if you hide this screen.</string>
+	<string name="clone_success_title">Repository cloned</string>
+	<string name="clone_success_path_label">Project path</string>
+	<string name="clone_success_copy_path">Copy path</string>
+	<string name="clone_success_hint">When you close this, VzSync selects this folder automatically. You can already push the project back to GitHub using the main button.</string>
+	<string name="clone_success_close">Close and select folder</string>
+	<string name="clone_error_title">Failed</string>
+	<string name="clone_error_open_settings">Open settings</string>
+	<string name="clone_vm_error_storage_permission">VzSync needs full file access to clone repositories. Tap \"Open settings\" and grant access.</string>
+	<string name="clone_vm_error_not_connected">GitHub account not connected. Reconnect from the home screen.</string>
+
+	<!-- Auth -->
+	<string name="auth_title">Connect to GitHub</string>
+	<string name="auth_username_label">GitHub username</string>
+	<string name="auth_token_label">Access token (PAT)</string>
+	<string name="auth_token_show">Show token</string>
+	<string name="auth_token_hide">Hide token</string>
+	<string name="auth_why_title">Why do we need the token?</string>
+	<string name="auth_why_body">VzSync uses a personal access token (PAT) to authenticate on your behalf, list your repositories, and push your projects. Without it, nothing works.</string>
+	<string name="auth_scopes_title">What to enable on the token:</string>
+	<string name="auth_scope_repo">repo</string>
+	<string name="auth_scope_repo_desc"> — Read and write to repositories</string>
+	<string name="auth_scope_workflow">workflow</string>
+	<string name="auth_scope_workflow_desc"> — Trigger GitHub Actions</string>
+	<string name="auth_scope_read_user">read:user</string>
+	<string name="auth_scope_read_user_desc"> — Read profile data</string>
+	<string name="auth_where_create">Where to create it:\nGitHub → Settings → Developer settings → Personal access tokens → Tokens (classic) → Generate new token</string>
+	<string name="auth_connect">Connect</string>
+	<string name="auth_connecting">Connecting…</string>
+	<string name="auth_connected_title">Account connected</string>
+	<string name="auth_disconnect">Disconnect</string>
+	<string name="auth_view_repos">View my repositories</string>
+	<string name="auth_stat_repos">Repos</string>
+	<string name="auth_stat_followers">Followers</string>
+	<string name="auth_stat_following">Following</string>
+	<string name="auth_err_empty">Fill in username and token.</string>
+	<string name="auth_err_invalid_token">Invalid or expired token.</string>
+	<string name="auth_err_scope">Token has insufficient permission.</string>
+	<string name="auth_err_user_mismatch">The token belongs to another account.</string>
+	<string name="auth_err_network">Connection failure.</string>
+	<string name="auth_err_rate_limited">Rate limit reached.</string>
+	<string name="auth_err_unknown">Unexpected error.</string>
+
+	<!-- Repos -->
+	<string name="repos_title">Repositories</string>
+	<string name="repos_refresh">Refresh</string>
+	<string name="repos_help_action">Help about repositories</string>
+	<string name="repos_filter_all">All (%1$d)</string>
+	<string name="repos_filter_public">Public (%1$d)</string>
+	<string name="repos_filter_private">Private (%1$d)</string>
+	<string name="repos_empty">No repositories to show</string>
+	<string name="repos_private_badge">Private</string>
+	<string name="repos_updated_at">Updated on %1$s</string>
+	<string name="repos_stat_repos">Repos</string>
+	<string name="repos_stat_public">Public</string>
+	<string name="repos_stat_private">Private</string>
+	<string name="repos_stat_stars">Stars</string>
+	<string name="repos_detail_visibility">Visibility</string>
+	<string name="repos_detail_public">Public</string>
+	<string name="repos_detail_private">Private</string>
+	<string name="repos_detail_branch">Default branch</string>
+	<string name="repos_detail_language">Language</string>
+	<string name="repos_detail_stars">Stars</string>
+	<string name="repos_detail_forks">Forks</string>
+	<string name="repos_detail_watchers">Watchers</string>
+	<string name="repos_detail_issues">Open issues</string>
+	<string name="repos_detail_size">Size</string>
+	<string name="repos_detail_files">Files</string>
+	<string name="repos_detail_updated">Updated</string>
+	<string name="repos_detail_counting">Counting…</string>
+	<string name="repos_open_github">Open on GitHub</string>
+	<string name="repos_delete">Delete repository</string>
+	<string name="repos_delete_title">Delete repository?</string>
+	<string name="repos_delete_about">You are about to permanently delete:</string>
+	<string name="repos_delete_warning">Everything will be erased: code, commit history, issues, pull requests, releases, wiki and settings. This action cannot be undone.</string>
+	<string name="repos_delete_scope_warning">To delete repositories, your GitHub token needs the \'delete_repo\' scope. If you didn\'t select it when creating the token, the operation will fail with a permission error.</string>
+	<string name="repos_delete_confirm">Delete</string>
+	<string name="repos_delete_in_progress">Deleting…</string>
+	<string name="repos_deleted_snackbar">Repository \'%1$s\' deleted.</string>
+	<string name="repos_err_invalid_token">Invalid or expired token.</string>
+	<string name="repos_err_list_permission">No permission to list repositories.</string>
+	<string name="repos_err_rate_limited">Rate limit reached.</string>
+	<string name="repos_err_generic_http">Error %1$d: %2$s</string>
+	<string name="repos_err_no_connection">No internet connection.</string>
+	<string name="repos_err_timeout">Timeout while fetching repositories.</string>
+	<string name="repos_err_network">Network failure: %1$s</string>
+	<string name="repos_err_unexpected">Unexpected error.</string>
+	<string name="repos_err_tree_too_large">Repository too large to count all files.</string>
+	<string name="repos_err_branch_not_found">Branch \'%1$s\' not found.</string>
+	<string name="repos_err_repo_empty">Repository is empty.</string>
+	<string name="repos_err_count_http">Error %1$d while counting files.</string>
+	<string name="repos_err_count_network">Network failure while counting files.</string>
+	<string name="repos_err_count">Error counting files.</string>
+	<string name="repos_err_delete_permission">No permission. Your token needs the \'delete_repo\' scope. Generate a new token on GitHub and reconnect.</string>
+	<string name="repos_err_not_found">Repository not found.</string>
+	<string name="repos_err_delete_timeout">Timeout while deleting repository.</string>
+
+	<!-- Advanced actions -->
+	<string name="advanced_title">Advanced actions</string>
+	<string name="advanced_help_action">Help about advanced actions</string>
+	<string name="advanced_info_card">These actions modify the local repository directly. Most users don\'t need them — VzSync handles the push automatically. Use with care.</string>
+	<string name="advanced_repo_label">Repository</string>
+	<string name="advanced_repo_change">Change repository</string>
+	<string name="advanced_history_title">Commit history</string>
+	<string name="advanced_empty_no_commits">No commits yet.\nCommits made by the app will appear here.</string>
+	<string name="advanced_empty_no_repo">No repository selected.</string>
+	<string name="advanced_empty_repo_no_commits">No commits in \'%1$s\'.</string>
+	<string name="advanced_actions_section">Actions</string>
+	<string name="advanced_action_view_last">View last commit</string>
+	<string name="advanced_action_view_last_desc">Shows the details of the most recent commit.</string>
+	<string name="advanced_action_undo">Undo last commit</string>
+	<string name="advanced_action_undo_desc">Removes the last local commit. Files remain.</string>
+	<string name="advanced_action_discard">Discard local changes</string>
+	<string name="advanced_action_discard_desc">Discards uncommitted changes. Cannot be undone.</string>
+	<string name="advanced_action_switch">Switch branch</string>
+	<string name="advanced_action_switch_desc">Changes the active branch of the local repository.</string>
+	<string name="advanced_branch_current">Current branch: %1$s</string>
+	<string name="advanced_destructive_badge">Destructive action</string>
+	<string name="advanced_confirm_undo_title">Undo last commit?</string>
+	<string name="advanced_confirm_undo_body">The last commit of this repository will be removed from the local history. Files will not be changed — only the commit record disappears.</string>
+	<string name="advanced_confirm_discard_title">Discard local changes?</string>
+	<string name="advanced_confirm_discard_body">All uncommitted changes will be lost. This action cannot be undone.</string>
+	<string name="advanced_confirm">Confirm</string>
+	<string name="advanced_last_commit_title">Last commit</string>
+	<string name="advanced_detail_hash">Hash</string>
+	<string name="advanced_detail_repo">Repository</string>
+	<string name="advanced_detail_branch">Branch</string>
+	<string name="advanced_detail_date">Date</string>
+	<string name="advanced_detail_mode">Mode</string>
+	<string name="advanced_detail_folder">Folder</string>
+	<string name="advanced_detail_files">Files</string>
+	<string name="advanced_mode_initial">initial</string>
+	<string name="advanced_mode_sync">sync</string>
+	<string name="advanced_mode_rebuild">rebuild</string>
+	<string name="advanced_branch_sheet_title">Switch branch</string>
+	<string name="advanced_branch_sheet_hint">The actual switch will happen when JGit is integrated. For now, the branch is just saved for reference.</string>
+	<string name="advanced_branch_sheet_label">Branch name</string>
+	<string name="advanced_branch_sheet_change">Switch</string>
+
+	<!-- Push settings -->
+	<string name="push_settings_title">Push system</string>
+	<string name="push_settings_help_action">Help about push system</string>
+	<string name="push_settings_section_behavior">Behavior</string>
+	<string name="push_settings_default_mode">Default push mode</string>
+	<string name="push_settings_default_mode_subtitle">Pre-selected on confirm</string>
+	<string name="push_settings_post_send">After push</string>
+	<string name="push_settings_post_commit_only">Commit only</string>
+	<string name="push_settings_post_commit_only_desc">Saves locally only. You push later.</string>
+	<string name="push_settings_post_commit_push">Commit + push</string>
+	<string name="push_settings_post_commit_push_desc">Normal flow: creates the commit and pushes to GitHub.</string>
+	<string name="push_settings_commit_message">Commit message</string>
+	<string name="push_settings_commit_message_label">Default message</string>
+	<string name="push_settings_preview">Preview</string>
+	<string name="push_settings_section_log">Log</string>
+	<string name="push_settings_log_style">Style</string>
+	<string name="push_settings_log_style_subtitle">Push log appearance</string>
+	<string name="push_settings_auto_log">Show log automatically</string>
+	<string name="push_settings_auto_log_subtitle">Open log after push finishes</string>
+	<string name="push_settings_preview_title">Configuration preview</string>
+	<string name="push_settings_preview_mode">Default mode</string>
+	<string name="push_settings_preview_action">Final action</string>
+	<string name="push_settings_preview_message">Commit message</string>
+	<string name="push_settings_preview_log_style">Log style</string>
+	<string name="push_settings_preview_auto_log">Auto log</string>
+	<string name="push_settings_preview_yes">Yes</string>
+	<string name="push_settings_preview_no">No</string>
+	<string name="push_settings_placeholders_header">Placeholders</string>
+	<string name="push_settings_placeholder_add">Add placeholder</string>
+	<string name="push_settings_placeholder_date">Current date (dd/MM/yyyy)</string>
+	<string name="push_settings_placeholder_time">Current time (HH:mm)</string>
+	<string name="push_settings_placeholder_folder">Folder path</string>
+	<string name="push_settings_placeholder_repo">Repository name</string>
+	<string name="push_settings_placeholder_user">User name</string>
+	<string name="push_settings_placeholder_branch">Current branch</string>
+	<string name="push_settings_placeholder_files">File count</string>
+	<string name="push_settings_placeholder_mode">Push mode</string>
+	<string name="push_settings_empty_template">(empty — default will be used)</string>
+	<string name="push_settings_preview_folder">[folder]</string>
+	<string name="push_settings_preview_repo">[repository]</string>
+	<string name="push_settings_preview_user">[user]</string>
+	<string name="push_settings_preview_branch">[main]</string>
+	<string name="push_settings_preview_files">[N]</string>
+	<string name="push_settings_preview_mode_value">[Sync]</string>
+
+	<!-- About screen -->
+	<string name="about_title">About</string>
+	<string name="about_version_format">Version %1$s</string>
+	<string name="about_story_title">About the project</string>
+	<string name="about_story_p1">VzSync is a personal project created by Vtzin x with a simple goal: sending folders and files to GitHub repositories with a single tap, without typing commands in a terminal.</string>
+	<string name="about_story_p2">The idea came from a real problem. Vtzin x programs directly from his phone, editing projects in a mobile editor, using Termux to run Git commands, and setting up GitHub Actions to build the project. With every small change, the same ritual had to be repeated: open the terminal, type git add, git commit, git push — several times a day.</string>
+	<string name="about_story_p3">VzSync exists to eliminate that friction. It\'s one of those projects born to solve a personal annoyance that, for that very reason, ends up helping anyone facing the same situation. That\'s the philosophy behind VzTechCore: tools that help the author and, as a bonus, anyone with the same need.</string>
+	<string name="about_story_p4">Independently developed, with care and without rush, VzSync keeps evolving. It\'s the kind of project that starts small but solves a big problem for those who code from their phone.</string>
+	<string name="about_info_title">Information</string>
+	<string name="about_info_version">Version</string>
+	<string name="about_info_author">Developed by</string>
+	<string name="about_info_lab">Laboratory</string>
+
+	<!-- Help section titles -->
+	<string name="help_gs_title">Getting started</string>
+	<string name="help_gs_subtitle">Start here</string>
+	<string name="help_gt_title">Connecting GitHub</string>
+	<string name="help_gt_subtitle">Token, scopes and security</string>
+	<string name="help_fs_title">Choosing the folder</string>
+	<string name="help_fs_subtitle">How the app accesses your files</string>
+	<string name="help_hd_title">Side menu</string>
+	<string name="help_hd_subtitle">Folder file tree</string>
+	<string name="help_po_title">How pushing works</string>
+	<string name="help_po_subtitle">The full push flow</string>
+	<string name="help_cr_title">Create repository</string>
+	<string name="help_cr_subtitle">Name, visibility, first push</string>
+	<string name="help_er_title">Existing repository</string>
+	<string name="help_er_subtitle">Sync or rebuild</string>
+	<string name="help_cl_title">Clone repository</string>
+	<string name="help_cl_subtitle">Download a GitHub repo to your phone</string>
+	<string name="help_gf_title">The .git folder</string>
+	<string name="help_gf_subtitle">What it is and why it exists</string>
+	<string name="help_ps_title">Push system</string>
+	<string name="help_ps_subtitle">Every option explained</string>
+	<string name="help_lr_title">Reading the log</string>
+	<string name="help_lr_subtitle">Every symbol explained</string>
+	<string name="help_th_title">Theme</string>
+	<string name="help_th_subtitle">App appearance</string>
+	<string name="help_aa_title">Advanced actions</string>
+	<string name="help_aa_subtitle">History, undo, branch</string>
+	<string name="help_rs_title">My repositories</string>
+	<string name="help_rs_subtitle">List, details and deletion</string>
+	<string name="help_ab_title">Inside the app</string>
+	<string name="help_ab_subtitle">Technology and philosophy</string>
+	<string name="help_faq_title">Frequently asked questions</string>
+	<string name="help_faq_subtitle">Common doubts</string>
+	<string name="help_gl_title">Glossary</string>
+	<string name="help_gl_subtitle">Technical terms</string>
+
+	<!-- Libraries screen -->
+	<string name="libraries_title">Libraries</string>
+	<string name="libraries_subtitle">Open source libraries used in VzSync</string>
+	<string name="libraries_empty">No libraries to show</string>
+	<string name="libraries_view_license">View license</string>
+	<string name="libraries_license_liberal">Liberal</string>
+	<string name="libraries_license_moderate">Moderate</string>
+	<string name="libraries_license_strict">Strict</string>
+
+	<!-- Library descriptions -->
+	<string name="library_kotlin_desc">Main programming language of the app.</string>
+	<string name="library_kotlin_used">All app logic.</string>
+	<string name="library_coroutines_desc">Coroutine-based asynchronous programming.</string>
+	<string name="library_coroutines_used">Background operations (network, disk).</string>
+	<string name="library_compose_desc">Google\'s modern toolkit for building native interfaces.</string>
+	<string name="library_compose_used">The entire app UI.</string>
+	<string name="library_material_desc">Google\'s design system with ready-made components.</string>
+	<string name="library_material_used">Buttons, bottom sheets, cards and forms.</string>
+	<string name="library_navigation_desc">Screen navigation in Compose apps.</string>
+	<string name="library_navigation_used">Screen navigation in the app.</string>
+	<string name="library_lifecycle_desc">Android lifecycle and ViewModel libraries.</string>
+	<string name="library_lifecycle_used">Screen state management.</string>
+	<string name="library_activity_desc">Integration between Activity and Jetpack Compose.</string>
+	<string name="library_activity_used">App entry point.</string>
+	<string name="library_coil_desc">Image loading for Compose and Kotlin.</string>
+	<string name="library_coil_used">Profile photo and GitHub avatars.</string>
+	<string name="library_retrofit_desc">Typed HTTP client for Android and JVM.</string>
+	<string name="library_retrofit_used">Communication with the GitHub API.</string>
+	<string name="library_okhttp_desc">Efficient HTTP client for Android and JVM.</string>
+	<string name="library_okhttp_used">Network layer underneath Retrofit.</string>
+	<string name="library_serialization_desc">JSON and binary format serialization in Kotlin.</string>
+	<string name="library_serialization_used">GitHub API JSON conversion.</string>
+	<string name="library_jgit_desc">Java implementation of the Git engine.</string>
+	<string name="library_jgit_used">Commit and push operations to GitHub.</string>
+	<string name="library_security_desc">Encrypted storage of sensitive data.</string>
+	<string name="library_security_used">Securely store the GitHub token.</string>
+	<string name="library_documentfile_desc">File access via Storage Access Framework.</string>
+	<string name="library_documentfile_used">Read user-selected folders.</string>
+	<string name="library_jakarta_desc">Type family used in the interface.</string>
+	<string name="library_jakarta_used">All app fonts.</string>
+    
+    <!-- Help screen UI -->
+    <string name="help_search_placeholder">Search help</string>
+    <string name="help_search_clear">Clear search</string>
+    <string name="help_search_empty">No results for \"%1$s\"</string>
+    <string name="help_header_title">VzSync Guide</string>
+    <string name="help_header_subtitle">Everything you need to use the app: how to connect, how to push, and what each option does.</string>
+    <string name="help_callout_tip">Tip</string>
+    <string name="help_callout_warning">Warning</string>
+    <string name="help_callout_danger">Danger</string>
+
+    <!-- Libraries screen UI -->
+    <string name="libraries_header_title">Third-party libraries</string>
+    <string name="libraries_header_subtitle">VzSync is built on %1$d open source libraries maintained by people and organizations around the world. Each one is used with gratitude and respect for its license.</string>
+    <string name="libraries_legend_liberal">Permissive</string>
+    <string name="libraries_legend_moderate">With conditions</string>
+    <string name="libraries_legend_strict">Restrictive</string>
+    <string name="libraries_hint">Tap a library to see more details, the project link and the license text.</string>
+    <string name="libraries_detail_used_for">Used for: %1$s</string>
+    <string name="libraries_detail_project_link">Website / repository</string>
+    <string name="libraries_detail_license_text">License text</string>
+    <string name="libraries_detail_copy_link">Copy link</string>
+    <string name="libraries_detail_open_link">Open link</string>
+    <string name="libraries_detail_close">Close</string>
+    <string name="libraries_copied">Copied</string>
+    <string name="libraries_link_error">Could not open the link</string>
+</resources>

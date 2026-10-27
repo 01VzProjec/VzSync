@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- ========== Getting Started ========== -->
+	<string name="help_gs_01">VzSync sends a folder from your phone to a GitHub repository in just a few taps. It handles the Git commands for you, no need to open Termux.</string>
+	<string name="help_gs_02">In 4 steps</string>
+	<string name="help_gs_03">1. Connect your GitHub account with a personal token.</string>
+	<string name="help_gs_04">2. Choose your project folder or clone an existing repository.</string>
+	<string name="help_gs_05">3. Tap \"Push to GitHub\".</string>
+	<string name="help_gs_06">4. Choose to create a new repository or push to an existing one.</string>
+	<string name="help_gs_07">If the folder doesn\'t have a Git repository, VzSync creates one automatically. You don\'t need to do anything manually.</string>
+	<string name="help_gs_08">What happens under the hood appears in the log, in terminal format. If you already know Git, you can follow each command. If not, the log serves as a record of what was done.</string>
+
+	<!-- ========== GitHub Token ========== -->
+	<string name="help_gt_01">GitHub doesn\'t let apps access your account with a password. Instead, you create a Personal Access Token (PAT) with specific permissions.</string>
+	<string name="help_gt_02">Why it\'s needed</string>
+	<string name="help_gt_03">Every operation (listing repositories, creating a new one, sending files, cloning) must be authenticated. The token is the credential that proves to GitHub it\'s you acting.</string>
+	<string name="help_gt_04">Required scopes</string>
+	<string name="help_gt_05">repo — Read and write to repositories.</string>
+	<string name="help_gt_06">workflow — Trigger GitHub Actions workflows.</string>
+	<string name="help_gt_07">read:user — Read your profile data.</string>
+	<string name="help_gt_08">delete_repo — Delete repositories (optional).</string>
+	<string name="help_gt_09">How to create it</string>
+	<string name="help_gt_10">On GitHub: Settings → Developer settings → Personal access tokens → Tokens (classic) → Generate new token. Check the scopes above and copy the token. You\'ll only see the token once.</string>
+	<string name="help_gt_11">Never share your token. It gives full access to your repositories. If it leaks, revoke it immediately on the same screen where you created it.</string>
+	<string name="help_gt_12">VzSync stores the token encrypted on your device. It never leaves the phone, except to GitHub itself.</string>
+
+	<!-- ========== Folder Selection ========== -->
+	<string name="help_fs_01">Modern Android doesn\'t let apps access files freely. When you choose a folder, the system gives VzSync a specific permission only for that folder.</string>
+	<string name="help_fs_02">Why the path shows as /storage/emulated/0/…</string>
+	<string name="help_fs_03">That\'s the real path of the internal storage on Android. In the log, VzSync shows only the end of the path (for example, /…/VzSync) to save space.</string>
+	<string name="help_fs_04">The permission is remembered</string>
+	<string name="help_fs_05">Once chosen, the folder is remembered. When you open the app again, it will already have it selected. If the permission is revoked by the system, the app asks you to choose again.</string>
+	<string name="help_fs_06">If the folder doesn\'t appear in the picker, check if it\'s not on a cloud provider (Drive, Dropbox). VzSync needs direct access to the file system.</string>
+
+	<!-- ========== Home Drawer ========== -->
+	<string name="help_hd_01">The side menu shows the file tree of the selected folder. Open it by tapping the hamburger icon in the bar with the folder name.</string>
+	<string name="help_hd_02">How to navigate</string>
+	<string name="help_hd_03">Tap a folder to expand or collapse.</string>
+	<string name="help_hd_04">Folders with a single child are expanded automatically.</string>
+	<string name="help_hd_05">Folders with 2 or more items must be expanded manually.</string>
+	<string name="help_hd_06">If the structure is wider than the screen, drag to the side to see the rest.</string>
+	<string name="help_hd_07">Ignored folders and files</string>
+	<string name="help_hd_08">By default, the menu hides heavy or irrelevant folders: .git, build, node_modules, .gradle, .idea, __pycache__, .cache, target, dist and out.</string>
+	<string name="help_hd_09">The tree is only for viewing. VzSync doesn\'t open or edit files — for that, use an external editor.</string>
+
+	<!-- ========== Push Overview ========== -->
+	<string name="help_po_01">Pushing in VzSync follows exactly the same flow you\'d do in the terminal. The difference is that the commands are executed by the app.</string>
+	<string name="help_po_02">What happens when pushing</string>
+	<string name="help_po_03">git init — creates the local repository, if it doesn\'t exist yet.</string>
+	<string name="help_po_04">git remote add origin — points to the GitHub repository.</string>
+	<string name="help_po_05">git add . — marks all files for sending.</string>
+	<string name="help_po_06">git commit — records the changes with a message.</string>
+	<string name="help_po_07">git push — sends to GitHub.</string>
+	<string name="help_po_08">You can follow each step in the log in real time. Each command appears with the $ symbol in green; each result, in white.</string>
+	<string name="help_po_09">Customization</string>
+	<string name="help_po_10">In Settings → Push system, you choose the default mode, what the app does after the commit (commit only or commit + push), the message template and the log style.</string>
+
+	<!-- ========== Create Repo ========== -->
+	<string name="help_cr_01">The \"Create repository\" option creates a new repository on GitHub and sends the entire project at once.</string>
+	<string name="help_cr_02">Repository name</string>
+	<string name="help_cr_03">GitHub doesn\'t allow spaces or uppercase letters in repository names. VzSync adjusts the name automatically:</string>
+	<string name="help_cr_04">Trying Sistema  →  tentando-sistema</string>
+	<string name="help_cr_05">Visibility</string>
+	<string name="help_cr_06">Public — anyone can see the repository. Unlimited Actions minutes.</string>
+	<string name="help_cr_07">Private — only you can see it. 2,000 min/month Actions limit (free plan).</string>
+	<string name="help_cr_08">If you use GitHub Actions to build the project, private repositories consume minutes. Public repositories have unlimited minutes.</string>
+
+	<!-- ========== Existing Repo ========== -->
+	<string name="help_er_01">The \"Existing repository\" option sends the project to a repository already on your account. You choose between two push modes.</string>
+	<string name="help_er_02">Sync (default)</string>
+	<string name="help_er_03">Keeps the files already in the repository. Only sends what changed. It\'s a normal, safe, reversible push.</string>
+	<string name="help_er_04">Rebuild</string>
+	<string name="help_er_05">Deletes all the current repository content and recreates it from the folder. Useful when you\'ve reorganized the project and want GitHub to reflect exactly the local folder.</string>
+	<string name="help_er_06">Rebuild permanently deletes the remote content. Use only when you\'re sure. The Git history is preserved, but the current files disappear before being recreated.</string>
+	<string name="help_er_07">When in doubt, choose Sync. It\'s always safer, and you can rebuild later if needed.</string>
+
+	<!-- ========== Clone Repo ========== -->
+	<string name="help_cl_01">Cloning means downloading an existing repository from GitHub to your phone. Once cloned, you can edit the files with any editor and send them back through VzSync itself.</string>
+	<string name="help_cl_02">How to use</string>
+	<string name="help_cl_03">1. Tap \"Clone repository\" on the home screen.</string>
+	<string name="help_cl_04">2. Paste the HTTPS URL of the repository.</string>
+	<string name="help_cl_05">3. Confirm and wait for the download.</string>
+	<string name="help_cl_06">Where the project is saved</string>
+	<string name="help_cl_07">Cloned repositories are stored at /storage/emulated/0/VzSync/Repos/{name}. If a folder with that name already exists, the app adds a suffix (name-2, name-3) to avoid overwriting.</string>
+	<string name="help_cl_08">Accepted URL formats</string>
+	<string name="help_cl_09">https://github.com/user/repo\nhttps://github.com/user/repo.git\nhttps://github.com/user/repo/</string>
+	<string name="help_cl_10">SSH URLs (git@github.com:user/repo) don\'t work. Always use HTTPS.</string>
+	<string name="help_cl_11">Private repositories work if your token has the \'repo\' scope. Download progress appears in a persistent notification — you can minimize the app or even lock it and the clone keeps running.</string>
+	<string name="help_cl_12">Cancel and hide</string>
+	<string name="help_cl_13">During the clone, you can hide the screen to keep using the app (the download continues in the background), or cancel to abort. The cancel option also appears in the notification.</string>
+
+	<!-- ========== Git Folder ========== -->
+	<string name="help_gf_01">The .git folder is where Git stores the entire project history: every commit, every change, and the information of where to push (remote).</string>
+	<string name="help_gf_02">If the folder doesn\'t have .git</string>
+	<string name="help_gf_03">VzSync creates it automatically. It runs the equivalent of:</string>
+	<string name="help_gf_04">git init\ngit remote add origin https://github.com/user/repo.git\ngit add .\ngit commit -m \"…\"\ngit push -u origin main</string>
+	<string name="help_gf_05">This is exactly what you\'d do in the terminal. The app does it for you to eliminate friction.</string>
+	<string name="help_gf_06">Don\'t delete the .git folder manually. If you do, the app will recreate it and the previous commit history will be lost on the next push.</string>
+	<string name="help_gf_07">For projects you already version on PC, copy the entire folder including .git. This way VzSync uses the same remote already configured.</string>
+
+	<!-- ========== Push Settings ========== -->
+	<string name="help_ps_01">In Settings → Push system, you define how each push behaves. These options apply to all future pushes.</string>
+	<string name="help_ps_02">Default push mode</string>
+	<string name="help_ps_03">Defines which mode the app already marks as selected on the confirmation screen. You can still change it case by case.</string>
+	<string name="help_ps_04">Sync — the safe default. Only sends differences.</string>
+	<string name="help_ps_05">Rebuild — deletes and recreates the remote content.</string>
+	<string name="help_ps_06">After push</string>
+	<string name="help_ps_07">Commit only — saves locally, without sending to GitHub.</string>
+	<string name="help_ps_08">Commit + push — the default. Sends to GitHub.</string>
+	<string name="help_ps_09">Commit message</string>
+	<string name="help_ps_10">It\'s the text that describes each push in the Git history. You can customize it using placeholders. Tap the + button inside the field to see all of them and add to the text.</string>
+	<string name="help_ps_11">{date} — current date in dd/MM/yyyy format.</string>
+	<string name="help_ps_12">{time} — current time in HH:mm format.</string>
+	<string name="help_ps_13">{folder} — path of the folder being pushed.</string>
+	<string name="help_ps_14">{repo} — name of the destination repository.</string>
+	<string name="help_ps_15">{user} — your GitHub username.</string>
+	<string name="help_ps_16">{branch} — target branch (main).</string>
+	<string name="help_ps_17">{files} — number of files in the commit.</string>
+	<string name="help_ps_18">{mode} — push mode (Sync or Rebuild).</string>
+	<string name="help_ps_19">Log style</string>
+	<string name="help_ps_20">Both styles show exactly the same information — each command executed and each result. The only difference is visual.</string>
+	<string name="help_ps_21">Terminal — real terminal look: commands start with $ in green, results appear in white and errors in red.</string>
+	<string name="help_ps_22">Log — each line has a number and a short marker ($, w or e) before the text.</string>
+	<string name="help_ps_23">You can switch the style whenever you want. Nothing is lost — only how the log appears on screen changes.</string>
+
+	<!-- ========== Log Reading ========== -->
+	<string name="help_lr_01">The log shows, in real time, what VzSync is doing. The format depends on the style chosen in Settings → Push system.</string>
+	<string name="help_lr_02">Terminal style</string>
+	<string name="help_lr_03">$ in green — a command being executed (e.g., git init).</string>
+	<string name="help_lr_04">Text in white — success result of a command.</string>
+	<string name="help_lr_05">Text in red — error message.</string>
+	<string name="help_lr_06"># in gray — explanatory comment from the app.</string>
+	<string name="help_lr_07">Log style</string>
+	<string name="help_lr_08">$: command — command executed.</string>
+	<string name="help_lr_09">w: message — operation completed successfully.</string>
+	<string name="help_lr_10">e: message — operation failed.</string>
+	<string name="help_lr_11">In both styles, each line has a number on the left and can be selected with a long press to copy.</string>
+
+	<!-- ========== Theme ========== -->
+	<string name="help_th_01">In Settings → Theme, you choose the app appearance.</string>
+	<string name="help_th_02">AMOLED — fully black background. Saves battery on OLED screens.</string>
+	<string name="help_th_03">Dark — bluish dark background, more comfortable for night reading.</string>
+	<string name="help_th_04">Light — white background, ideal for well-lit environments.</string>
+	<string name="help_th_05">Follow system — uses Android\'s preference.</string>
+	<string name="help_th_06">Changes are applied in real time. No need to restart the app.</string>
+
+	<!-- ========== Advanced Actions ========== -->
+	<string name="help_aa_01">The Advanced actions screen gathers manual commands that most users don\'t need day-to-day. VzSync already does the push automatically; these actions are for when you need to intervene manually.</string>
+	<string name="help_aa_02">History per repository</string>
+	<string name="help_aa_03">Since you can send different folders to different repositories, the history is separated by repository. If you\'ve already pushed to more than one repository, a selector appears at the top of the screen to choose which repository to view.</string>
+	<string name="help_aa_04">VzSync tries to automatically select the repository you use with the current folder on Home. If it doesn\'t find one, it uses the most recently used repository.</string>
+	<string name="help_aa_05">What is a commit</string>
+	<string name="help_aa_06">A commit is a save point of the project in Git. Each commit records what changed, when, why (the message) and who did it. It\'s like a game\'s \"Save\": each commit is a save, and you can return to any of them. VzSync creates a commit with every push.</string>
+	<string name="help_aa_07">Commit history</string>
+	<string name="help_aa_08">Lists all commits made by VzSync in the selected repository. Each card shows message, branch, hash, source folder and exact date/time. It\'s read-only — nothing is changed.</string>
+	<string name="help_aa_09">View last commit</string>
+	<string name="help_aa_10">Shows the complete details of the most recent commit in a panel. Includes hash, repository, branch, date, mode (initial, sync or rebuild) and source folder.</string>
+	<string name="help_aa_11">Undo last commit</string>
+	<string name="help_aa_12">Removes the last commit of the selected repository from local history, but keeps the files. It\'s like undoing the \"save\" without losing progress.</string>
+	<string name="help_aa_13">Undo only removes from local history. If the commit was already pushed to GitHub, it stays there. To remove it from GitHub, another process is needed (force push), which VzSync doesn\'t do.</string>
+	<string name="help_aa_14">Discard local changes</string>
+	<string name="help_aa_15">Discards all changes that haven\'t been committed in the current folder. Files return to the last commit state. No going back.</string>
+	<string name="help_aa_16">This action deletes changes you made and didn\'t commit. Use only when you\'re sure nothing there needs to be saved.</string>
+	<string name="help_aa_17">Switch branch</string>
+	<string name="help_aa_18">Changes the active branch of the repository. If you work with multiple branches (main, dev, feature-x), this lets you tell VzSync which to use on the next push.</string>
+	<string name="help_aa_19">The discard changes and switch branch actions only work fully when the real JGit is integrated. For now, they save the intention and show a warning.</string>
+
+	<!-- ========== Repos Screen ========== -->
+	<string name="help_rs_01">The \"My repositories\" screen lists all repositories in your account — public and private — with statistics and quick access to each one.</string>
+	<string name="help_rs_02">What you see in the list</string>
+	<string name="help_rs_03">Repository name, with a padlock icon if private.</string>
+	<string name="help_rs_04">Description, main language, number of stars.</string>
+	<string name="help_rs_05">Last updated date.</string>
+	<string name="help_rs_06">Filters</string>
+	<string name="help_rs_07">At the top of the list, the chips \"All\", \"Public\" and \"Private\" filter the view. The number in parentheses shows how many repositories exist in each group.</string>
+	<string name="help_rs_08">Repository details</string>
+	<string name="help_rs_09">Tap any repository to open a panel with full details: visibility, default branch, language, stars, forks, watchers, open issues, size in MB, file count and last updated date.</string>
+	<string name="help_rs_10">The file count uses the Git tree API. On very large repositories (thousands of files), it may fail and show as \"—\".</string>
+	<string name="help_rs_11">Open on GitHub</string>
+	<string name="help_rs_12">The \"Open on GitHub\" button in the details panel opens the repository directly in your phone\'s browser.</string>
+	<string name="help_rs_13">Delete repository</string>
+	<string name="help_rs_14">In the same details panel, the \"Delete repository\" button starts permanent deletion. A confirmation dialog appears explaining that everything will be erased (code, commits, issues, releases, settings).</string>
+	<string name="help_rs_15">Deleting a repository is permanent. There\'s no \"undo\". If you need the content, fork or clone before deleting.</string>
+	<string name="help_rs_16">For the deletion to work, your GitHub access token needs the \'delete_repo\' scope. If you didn\'t check this scope when creating the token, the operation will fail with error 403. In that case, generate a new token with the extra scope and reconnect in Settings → Account.</string>
+
+	<!-- ========== About System ========== -->
+	<string name="help_ab_01">VzSync is built on open tools. This section explains how it works under the hood, for those with technical curiosity.</string>
+	<string name="help_ab_02">JGit</string>
+	<string name="help_ab_03">All Git operations (init, add, commit, push, clone) are done with JGit, a complete implementation of Git in Java maintained by the Eclipse project. It runs locally on your phone — no intermediary server. Your files and your token never pass through us.</string>
+	<string name="help_ab_04">Why not use the system\'s native Git</string>
+	<string name="help_ab_05">Android doesn\'t come with Git installed by default. Bundling a native Git binary would require cross-compilation for each architecture (arm64, x86_64) and add dozens of megabytes to the APK. JGit runs directly on Android\'s JVM, without external dependencies.</string>
+	<string name="help_ab_06">Jetpack Compose</string>
+	<string name="help_ab_07">The entire app interface is built with Compose, Google\'s modern toolkit for declarative UIs. This lets the interface react to state changes instantly.</string>
+	<string name="help_ab_08">GitHub API</string>
+	<string name="help_ab_09">Operations that depend on GitHub (listing repositories, creating a repository, fetching profile) use the official REST API. The token is stored encrypted on the device and never leaves the phone, except in direct calls to GitHub itself.</string>
+	<string name="help_ab_10">Project philosophy</string>
+	<string name="help_ab_11">VzSync was born to eliminate the friction of pushing code from a phone. It\'s not an editor, not an IDE, not a file manager. It\'s a push button, and it does that well.</string>
+	<string name="help_ab_12">The complete list of libraries used, with their licenses, is in Settings → Libraries.</string>
+
+	<!-- ========== FAQ ========== -->
+	<string name="help_faq_01">The token doesn\'t work</string>
+	<string name="help_faq_02">Check if the token has the required scopes (repo, workflow, read:user) and if it hasn\'t expired. If you revoked the token on GitHub, you need to generate a new one.</string>
+	<string name="help_faq_03">No repository appears to choose</string>
+	<string name="help_faq_04">Make sure your account has at least one repository. If you just created one, it may take a few seconds for the GitHub API to reflect. Try the refresh button.</string>
+	<string name="help_faq_05">The folder isn\'t detected</string>
+	<string name="help_faq_06">Folders on cloud providers (Drive, Dropbox) don\'t work. Choose a folder from internal storage or an SD card.</string>
+	<string name="help_faq_07">The push failed</string>
+	<string name="help_faq_08">Read the message in the log. The most common causes are: expired token, no internet connection, or the remote repository has changes you don\'t have locally. Reopen the app and try again.</string>
+	<string name="help_faq_09">The clone failed</string>
+	<string name="help_faq_10">Check if the URL is correct (only GitHub HTTPS) and if your connection is stable. If it\'s a private repository, the token needs the \'repo\' scope.</string>
+	<string name="help_faq_11">I can\'t delete a repository (error 403)</string>
+	<string name="help_faq_12">Your token doesn\'t have the \'delete_repo\' scope. Generate a new token on GitHub checking this extra scope and reconnect in Settings → Account.</string>
+	<string name="help_faq_13">The clone notification doesn\'t appear</string>
+	<string name="help_faq_14">Check if you allowed notifications for VzSync. On Xiaomi, the system can block notifications from background apps — open System Settings → Battery and allow \"No restrictions\".</string>
+	<string name="help_faq_15">Can I use multiple projects?</string>
+	<string name="help_faq_16">Yes. Just change the folder on Home (three dots at the top → Change folder) or clone a new repository. Each push uses the current folder.</string>
+	<string name="help_faq_17">What happens if I uninstall the app?</string>
+	<string name="help_faq_18">Your folders and repositories remain intact. What is lost are local settings (token, selected folder). You reconnect on the next installation.</string>
+
+	<!-- ========== Glossary ========== -->
+	<string name="help_gl_01">Push</string>
+	<string name="help_gl_02">Sending commits from your computer (or phone) to a remote repository like GitHub.</string>
+	<string name="help_gl_03">Commit</string>
+	<string name="help_gl_04">A record of changes in Git. Each commit has a message that describes what changed.</string>
+	<string name="help_gl_05">Branch</string>
+	<string name="help_gl_06">A parallel line of development. The default branch is usually called main or master.</string>
+	<string name="help_gl_07">Remote</string>
+	<string name="help_gl_08">The address of the remote repository (usually on GitHub). It\'s where the push sends the changes.</string>
+	<string name="help_gl_09">Clone</string>
+	<string name="help_gl_10">Downloading an entire remote repository to your device, including all commit history.</string>
+	<string name="help_gl_11">Fork</string>
+	<string name="help_gl_12">An independent copy of a repository. It\'s a way to keep the content before deleting the original.</string>
+	<string name="help_gl_13">git init</string>
+	<string name="help_gl_14">Command that creates the .git folder in a directory, turning it into a Git repository.</string>
+	<string name="help_gl_15">PAT</string>
+	<string name="help_gl_16">Personal Access Token. It\'s the credential the app uses to access GitHub on your behalf.</string>
+	<string name="help_gl_17">SAF</string>
+	<string name="help_gl_18">Storage Access Framework. It\'s the Android system that allows apps to access files with the user\'s permission.</string>
+	<string name="help_gl_19">Actions</string>
+	<string name="help_gl_20">GitHub Actions. GitHub service that runs automated tasks (like building the project) when you push.</string>
+</resources>
