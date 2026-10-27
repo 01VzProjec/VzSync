@@ -190,12 +190,48 @@ class JGitPipeline(
                 strings.get(R.string.git_log_commit_created, shortHash),
             )
 
-            // 8. Push
+            // 8. Ensure local branch name matches requested branch.
+            // Repositories initialized by older app versions may still be on
+            // "master". If the current branch differs from the requested one,
+            // rename it so the ref we push actually exists.
+            val currentBranch = try {
+                git.repository.branch
+            } catch (_: Exception) {
+                null
+            }
+            if (currentBranch != null && currentBranch != request.branch) {
+                logger.log(
+                    LogLevel.COMMENT,
+                    strings.get(R.string.git_log_renaming_branch, currentBranch, request.branch),
+                )
+                try {
+                    git.branchRename()
+                        .setOldName(currentBranch)
+                        .setNewName(request.branch)
+                        .call()
+                    logger.log(
+                        LogLevel.SUCCESS,
+                        strings.get(R.string.git_log_renaming_branch, currentBranch, request.branch),
+                    )
+                } catch (e: Exception) {
+                    logger.log(
+                        LogLevel.COMMENT,
+                        "renaming failed: ${describe(e)}",
+                    )
+                }
+            }
+
+            // 9. Push — use whatever branch is active now (should equal request.branch)
+            val pushBranch = try {
+                git.repository.branch ?: request.branch
+            } catch (_: Exception) {
+                request.branch
+            }
             val forcePush = request.mode == PushMode.REBUILD
             logger.log(
                 LogLevel.COMMAND,
-                if (forcePush) "git push --force origin ${request.branch}"
-                else "git push -u origin ${request.branch}",
+                if (forcePush) "git push --force origin $pushBranch"
+                else "git push -u origin $pushBranch",
             )
 
             try {
@@ -203,7 +239,7 @@ class JGitPipeline(
                     .setRemote("origin")
                     .setCredentialsProvider(gitHubCredentials(request.username, request.token))
                     .setForce(forcePush)
-                    .add("refs/heads/${request.branch}:refs/heads/${request.branch}")
+                    .add("refs/heads/$pushBranch:refs/heads/$pushBranch")
                     .call()
                 logger.log(LogLevel.SUCCESS, strings.get(R.string.git_log_push_completed))
             } catch (e: Exception) {

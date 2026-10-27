@@ -532,6 +532,7 @@
 	<string name="push_vm_log_repo_created">Repositório criado: %1$s (%2$s)</string>
 	<string name="push_vm_log_repo_exists">Repositório já existe — reutilizando</string>
 	<string name="push_vm_log_target_repo">Repositório alvo: %1$s</string>
+    <string name="git_log_renaming_branch">Renomeando branch %1$s → %2$s</string>
 	<string name="push_vm_log_visibility_private">privado</string>
 	<string name="push_vm_log_visibility_public">público</string>
 
