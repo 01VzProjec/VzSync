@@ -37,11 +37,21 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      # Restore the release keystore from the base64-encoded secret into
-      # the path expected by build.gradle.kts.
+      # Restore the release keystore from the base64-encoded secret.
+      # The secret may contain stray newlines or spaces depending on how
+      # it was pasted, so we strip them before decoding. A validation step
+      # ensures the resulting file is a valid JKS before the build runs.
       - name: Decode keystore
         run: |
-          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > app/release-key.jks
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | tr -d '\n\r ' | base64 --decode > app/release-key.jks
+          if [ ! -s app/release-key.jks ]; then
+            echo "ERROR: keystore file is empty. Check the KEYSTORE_BASE64 secret."
+            exit 1
+          fi
+          keytool -list -keystore app/release-key.jks \
+            -storepass "${{ secrets.KEYSTORE_PASSWORD }}" \
+            -alias "${{ secrets.KEY_ALIAS }}" > /dev/null
+          echo "Keystore decoded and validated successfully."
 
       # Make the Gradle wrapper executable on the runner.
       - name: Grant execute permission for gradlew

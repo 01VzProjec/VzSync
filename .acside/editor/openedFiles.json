@@ -1,0 +1,20 @@
+{
+  "allFiles": [
+    {
+      "file": "/storage/emulated/0/AndroidIDE_Projects/VzSync/.github/workflows/build.yml",
+      "selection": {
+        "end": {
+          "column": 61,
+          "index": 2783,
+          "line": 74
+        },
+        "start": {
+          "column": 61,
+          "index": 2783,
+          "line": 74
+        }
+      }
+    }
+  ],
+  "selectedFile": "/storage/emulated/0/AndroidIDE_Projects/VzSync/.github/workflows/build.yml"
+}
